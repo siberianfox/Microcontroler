@@ -1,0 +1,480 @@
+
+#include "kfm010b11.H"
+#include<STC15W.h>
+
+sbit LcdCs = P1^0;  //GPIOC_DOR bit8 add
+sbit LcdRst = P3^2;  //GPIOC_DOR bit8 add
+sbit LcdA0  = P3^7; //GPIOC_DOR bit8 add
+sbit LcdSck =  P3^6; //GPIOC_DOR bit8 add
+sbit LcdSda = P3^3;  //GPIOC_DOR bit8 add
+ 
+ // 0(0) 1(1) 2(2) 3(3) 4(4) 5(5) 6(6) 7(7) 8(8) 9(9) .(10)
+//FONT16x24(16宽,高24)从上到下竖取模,低位在前(高8位) 
+
+const unsigned char ASCII_8X5[200][5]=
+{
+{0x00,0x00,0x00,0x00,0x00 },/*" ",0*/
+
+{0x00,0x00,0xFA,0x00,0x00 },/*"!",1*/
+
+{0x00,0xC0,0x00,0xC0,0x00 },/*""",2*/
+
+{0x28,0xFE,0x28,0xFE,0x28 },/*"#",3*/
+
+{0x00,0x32,0x5E,0xF2,0x4C },/*"$",4*/
+
+{0x00,0x66,0x68,0x16,0x66 },/*"%",5*/
+
+{0x00,0x1C,0xF2,0xB2,0x4C },/*"&",6*/
+
+{0x00,0x00,0xC0,0x00,0x00 },/*"`",7*/
+
+{0x00,0x00,0x7C,0x82,0x00 },/*"(",8*/
+
+{0x00,0x00,0x82,0x7C,0x00 },/*")",9*/
+
+{0x00,0x38,0x7C,0x38,0x00 },/*"*",10*/
+
+{0x00,0x10,0x7C,0x10,0x00 },/*"+",11*/
+
+{0x00,0x00,0x00,0x06,0x00 },/*",",12*/
+
+{0x00,0x10,0x10,0x10,0x10 },/*"-",13*/
+
+{0x00,0x00,0x02,0x00,0x00 },/*".",14*/
+
+{0x00,0x02,0x0C,0x30,0xC0 },/*"/",15*/
+
+{0x00,0x7C,0x82,0x82,0x7C },/*"0",16*/
+
+{0x00,0x42,0xFE,0x02,0x00 },/*"1",17*/
+
+{0x00,0x46,0x8A,0x92,0x62 },/*"2",18*/
+
+{0x00,0x44,0x92,0x92,0x6C },/*"3",19*/
+
+{0x00,0x1C,0x64,0xFE,0x04 },/*"4",20*/
+
+{0x00,0xF2,0x92,0x92,0x8C },/*"5",21*/
+
+{0x00,0x7C,0x92,0x92,0x4C },/*"6",22*/
+
+{0x00,0xC0,0x8E,0x90,0xE0 },/*"7",23*/
+
+{0x00,0x6C,0x92,0x92,0x6C },/*"8",24*/
+
+{0x00,0x64,0x92,0x92,0x7C },/*"9",25*/
+
+{0x00,0x00,0x24,0x00,0x00 },/*":",26*/
+
+{0x00,0x02,0x24,0x00,0x00 },/*";",27*/
+
+{0x00,0x10,0x28,0x44,0x82 },/*"<",28*/
+
+{0x00,0x28,0x28,0x28,0x28 },/*"=",29*/
+
+{0x00,0x82,0x44,0x28,0x10 },/*">",30*/
+
+{0x00,0x40,0x8A,0x90,0x60 },/*"?",31*/
+
+{0x00,0x70,0x8E,0x92,0x7E },/*"@",32*/
+
+{0x00,0x7E,0x88,0x88,0x7E },/*"A",0*/
+
+{0x00,0xFE,0x92,0x92,0x6C },/*"B",1*/
+
+{0x00,0x7C,0x82,0x82,0x44 },/*"C",2*/
+
+{0x00,0xFE,0x82,0x82,0x7C },/*"D",3*/
+
+{0x00,0xFE,0x92,0x92,0x82 },/*"E",4*/
+
+{0x00,0xFE,0x90,0x90,0x80 },/*"F",5*/
+
+{0x00,0x7C,0x82,0x92,0x5C },/*"G",6*/
+
+{0x00,0xFE,0x10,0x10,0xFE },/*"H",7*/
+
+{0x00,0x82,0xFE,0x82,0x00 },/*"I",8*/
+
+{0x00,0x0C,0x02,0x02,0xFC },/*"J",9*/
+
+{0x00,0xFE,0x10,0x28,0xC6 },/*"K",10*/
+
+{0x00,0xFE,0x02,0x02,0x02 },/*"L",11*/
+
+{0x00,0xFE,0x60,0x60,0xFE },/*"M",12*/
+
+{0x00,0xFE,0x60,0x18,0xFE },/*"N",13*/
+
+{0x00,0xFE,0x82,0x82,0xFE },/*"O",14*/
+
+{0x00,0xFE,0x90,0x90,0x60 },/*"P",15*/
+
+{0x00,0x7C,0x8A,0x86,0x7E },/*"Q",16*/
+
+{0x00,0xFE,0x98,0x94,0x62 },/*"R",17*/
+
+{0x00,0x64,0x92,0x92,0x4C },/*"S",18*/
+
+{0x00,0x80,0xFE,0x80,0x80 },/*"T",19*/
+
+{0x00,0xFC,0x02,0x02,0xFC },/*"U",20*/
+
+{0x00,0xF0,0x0E,0x0E,0xF0 },/*"V",21*/
+
+{0x00,0xFE,0x0C,0x0C,0xFE },/*"W",22*/
+
+{0x00,0xC6,0x38,0x38,0xC6 },/*"X",23*/
+
+{0xC0,0x20,0x1E,0x20,0xC0 },/*"Y",24*/
+
+{0x00,0x86,0x9A,0xB2,0xC2 }, /*"Z",25*/
+
+//''''''''''''''''''''''''''''''''''''''''''''''''''
+
+{0x00,0x00,0xFE,0x82,0x00 },/*"[",0*/
+
+{0xC0,0x30,0x0C,0x02,0x00 },/*"\",1*/
+
+{0x00,0x00,0x82,0xFE,0x00 },/*"]",2*/
+
+{0x00,0x40,0x80,0x40,0x00 },/*"^",3*/
+
+{0x00,0x02,0x02,0x02,0x02 },/*"_",4*/
+
+{0x00,0x00,0xC0,0x00,0x00 },/*"`",5*/
+
+{0x00,0x04,0x1A,0x1A,0x1E },/*"a",6*/
+
+{0x00,0xFE,0x12,0x12,0x0C },/*"b",7*/
+
+{0x00,0x0C,0x12,0x12,0x12 },/*"c",8*/
+
+{0x00,0x0C,0x12,0x12,0xFE },/*"d",9*/
+
+{0x00,0x0C,0x1A,0x1A,0x08 },/*"e",10*/
+
+{0x00,0x10,0x3E,0x50,0x10 },/*"f",11*/
+
+{0x00,0x08,0x15,0x15,0x1E },/*"g",12*/
+
+{0x00,0xFE,0x10,0x1E,0x00 },/*"h",13*/
+
+{0x00,0x00,0x2E,0x00,0x00 },/*"i",14*/
+
+{0x00,0x01,0x01,0x2E,0x00 },/*"j",15*/
+
+{0x00,0xFE,0x08,0x14,0x12 },/*"k",16*/
+
+{0x00,0x02,0xFE,0x02,0x00 },/*"l",17*/
+
+{0x00,0x1E,0x10,0x1E,0x1E },/*"m",18*/
+
+{0x00,0x1E,0x10,0x10,0x0E },/*"n",19*/
+
+{0x00,0x0C,0x12,0x12,0x0C },/*"o",20*/
+
+{0x00,0x1F,0x12,0x12,0x0C },/*"p",21*/
+
+{0x00,0x0C,0x12,0x12,0x1F },/*"q",22*/
+
+{0x00,0x1E,0x08,0x10,0x10 },/*"r",23*/
+
+{0x00,0x0A,0x1A,0x16,0x14 },/*"s",24*/
+
+{0x00,0x10,0x3E,0x12,0x00 },/*"t",25*/
+
+{0x00,0x1C,0x02,0x02,0x1E },/*"u",26*/
+
+{0x00,0x18,0x06,0x06,0x18 },/*"v",27*/
+
+{0x18,0x06,0x1C,0x06,0x18 },/*"w",28*/
+
+{0x00,0x12,0x0C,0x0C,0x12 },/*"x",29*/
+
+{0x00,0x18,0x05,0x05,0x1E },/*"y",30*/
+
+{0x00,0x12,0x16,0x1A,0x12 },/*"z",31*/
+
+{0x00,0x10,0xEE,0x82,0x00 },/*"{",32*/
+
+{0xC0,0x30,0x0C,0x02,0x00 },/*"\",33*/
+
+{0x00,0x82,0xEE,0x10,0x00 },/*"}",34*/
+
+{0x00,0x40,0x80,0x40,0x80 } /*"~",35*/
+
+};
+
+//PAGE_8
+//0->天线标记	
+//4->天线信号最小挡	
+//7 ->天线信号中挡		
+//10 ->天线信号高挡	
+//20 ->电话听筒标记	
+//30 ->电话锁标记
+//40 ->字母Gr标记	
+//50 ->信箱标记		
+//60 ->锁标记		
+//70 ->禁止铃声标记	
+//75 ->闹钟标记		
+//80 ->电池外壳标记	
+//93 ->电池电量高标记	
+//94 ->电池电量低标记	
+//95 ->电池电量中标记	 
+
+
+void LCD_SendCom(unsigned char COM);
+void LCD_SendData(unsigned char Data);
+void clear_lcd_kfm010b11(void);
+ 
+//延时n毫秒
+void delay_ms(unsigned int n)
+{
+    unsigned int i=0,j=0;
+    for(i=0;i<n;i++)
+        for(j=0;j<114;j++);
+}
+
+//●●●●●LCD发送指令
+void LCD_SendCom(unsigned char COM)
+{
+	unsigned char shift;
+	LcdA0 =0;
+  LcdCs =0;
+	for(shift=0;shift<8;shift++)
+		{
+			LcdSda =(COM&0x80);
+			LcdSck =0;
+	  delay_ms(1);
+			LcdSck =1;
+			COM <<=1;
+		}
+	 LcdCs =1;
+}
+//●●●●●LCD发送数据
+void LCD_SendData(unsigned char Data)
+{
+	unsigned char shift;
+	LcdA0 =1;
+  LcdCs =0;
+		for(shift=0;shift<8;shift++)
+		{
+			LcdSda = (Data&0x80);
+			LcdSck =0;
+	  delay_ms(1);
+			LcdSck =1;
+			Data <<=1;
+		}
+	 LcdCs =1;
+}
+
+//●●●●●清屏
+void clear_lcd_kfm010b11(void)
+  {
+		int i; 
+	 
+		LCD_SendCom(0x78);
+		LCD_SendCom(0x40);
+		for(i = 0; i < 102*9; i++)
+		{
+		 LCD_SendData(0x00); 
+		}  
+  }
+//●●●●●初始化LCD
+void init_kfm010b11(void)
+{
+	LcdRst=0;
+	LcdSck =1;
+	LcdCs =0;
+	delay_ms(50);
+	LcdRst=1;
+	delay_ms(50);
+  LCD_SendCom(0x78);// 
+	LCD_SendCom(0x00);//NOP 
+	LCD_SendCom(0x2e);//MXMY Mirror X, Mirror Y	
+  LCD_SendCom(0x21);//Function set->Extend Set H=1
+	LCD_SendCom(0x10);//Bia->对比度调整0b0000xxx
+	LCD_SendCom(0xc0);//VOP 
+	LCD_SendCom(0x0b);//oost
+	LCD_SendCom(0x20);//Function set->Normal Set H=0 
+  LCD_SendCom(0x11);//PRS 
+	LCD_SendCom(0x0c);// 
+	LCD_SendCom(0x40);// 
+ 	LCD_SendCom(0x80);//PD->en  
+	LCD_SendCom(0x20);//Function set->Normal Set H=0	
+  clear_lcd_kfm010b11( ); //SET H=0
+	LcdCs =1;
+}
+
+////●●●●●Sets X address of RAM 0≦X≦95 (//SET H=0)
+//void SetXAdd(unsigned char X)
+//{
+//	LCD_SendCom(0x80+X);
+//}
+
+////●●●●●Sets Y address of RAM  0≦Y≦7 (//SET H=0)
+//void SetYAdd(unsigned char Y)
+//{
+//	LCD_SendCom(0x40+Y);
+//}
+
+
+
+////●●●●●●输出96X64图片
+//void PrintLcd96x64(const unsigned char *bpm)
+//{
+//	unsigned char X_count,Y_count;
+//	for(Y_count=0;Y_count<8;Y_count++)
+//	{
+//		  LCD_SendCom(0x80+00);//set RAM 0≦X≦95
+//			LCD_SendCom(0x40+Y_count);//Sets Y address of RAM  0≦Y≦7 (//SET H=0)
+
+//	 for(X_count=0;X_count<96;X_count++)
+//			{
+//			   LCD_SendData(*bpm);//send data
+//				  bpm++;
+//			}
+//  }
+//}
+
+////●●●●●测试
+void test_sendByte(unsigned char x,unsigned char y )
+{
+   LCD_SendCom(0x80+90+5);//set RAM 0≦X≦95
+	LCD_SendCom(0x40+7);//Set  Y address of RAM  0≦Y≦7 (//SET H=0)
+	LCD_SendData(0xff);//send data
+
+////PAGE_8
+////0->天线标记	
+////4->天线信号最小挡	
+////7 ->天线信号中挡		
+////10 ->天线信号高挡	
+////20 ->电话听筒标记	
+////30 ->电话锁标记
+////40 ->字母Gr标记	
+////50 ->信箱标记		
+////60 ->锁标记		
+////70 ->禁止铃声标记	
+////75 ->闹钟标记		
+////80 ->电池外壳标记	
+////93 ->电池电量高标记	
+////94 ->电池电量低标记	
+////95 ->电池电量中标记	
+}
+//●●●●●●输出一个字符 一行96/6=16个字符,0-7行LINE
+void Print_a_Ascii8x5(unsigned char Ascii,unsigned char line,unsigned char Number)
+{
+	unsigned char X_Count;
+	Number *=6 ;//列位置计算.一个字符8列,共96列
+  line =7-line ;//行反转,由于0行在最底下,改动到7行最上面位置
+
+  LCD_SendCom(0x80+Number);//set RAM 0≦X≦95 列位置(96/8=12)
+	LCD_SendCom(0x40+line);//Set  Y address of RAM  0≦Y≦7 (//SET H=0)
+	for(X_Count=1;X_Count < 5 ;X_Count ++)
+		{		
+		  LCD_SendData( ASCII_8X5[ Ascii- ' ' ][X_Count]);//send data
+	  }
+}	
+//●●●●●●输出串字符 一行96/6=16个字符,0-7行LINE
+void Print_Str_Ascii8x5(void *StrAscii,unsigned char line,unsigned char Number)
+{
+	  unsigned char * StrAscii_temp =(unsigned char *) StrAscii;
+ while(*StrAscii_temp)
+ {
+
+   Print_a_Ascii8x5( *StrAscii_temp, line, Number);
+	 StrAscii_temp++;
+	 Number ++;
+   if(Number>>4)
+	 {
+	    Number =0;
+		  line++;
+		  line %=8;
+	 }
+ } 
+	
+}
+
+
+////●●●●●●输出一个字符宽8x高16 一行96/8=12个字符,0-3行LINE
+//void Print_a_Ascii8x16(unsigned char Ascii,unsigned char line,unsigned char Number)
+//{
+//	unsigned char X_Count;
+//	Number *=8 ;//列位置计算.一个字符8列,共96列
+//  line =(3-line)*2 ;//行反转,由于0行在最底下,改动到96行最上面位置
+
+//  LCD_SendCom(0x80+Number);//set RAM 0≦X≦95 列位置(96/8=12)
+//	LCD_SendCom(0x40+line);//Set  Y address of RAM  0≦Y≦7 (//SET H=0)
+//	for(X_Count=0;X_Count < 8 ;X_Count ++)
+//		{		
+//		  LCD_SendData( ASCII_16X8_H[ Ascii- ' ' ][X_Count+8]);//send data
+//	  }
+//		
+//   LCD_SendCom(0x80+Number);//set RAM 0≦X≦95 列位置(96/8=12)
+//	LCD_SendCom(0x40+line+1);//Sets Y address of RAM  0≦Y≦7 (//SET H=0)
+//	for(X_Count=0;X_Count < 8;X_Count ++)
+//		{		
+//		  LCD_SendData( ASCII_16X8_H[ Ascii- ' ' ][X_Count]);//send data
+//	  }
+//		
+//}
+
+
+////●●●●●●输出一个字符 一行96/8=12个字符,0-3行LINE
+//void Print_Str_Ascii8x16(void *StrAscii,unsigned char line,unsigned char Number)
+//{
+//	 unsigned char * StrAscii_temp =(unsigned char *) StrAscii;
+//	 while(*StrAscii_temp)
+//		 {
+//       Print_a_Ascii8x16( *StrAscii_temp, line, Number);
+//			 StrAscii_temp++;
+//			 Number ++;
+//		   if(Number/12)
+//				 {
+//					 Number =0;
+//					 line++;
+//					 if( 4 == line )
+//					 {
+//							line  =0;
+//					 }
+//				 }
+//		 } 
+//	
+//}
+ 
+
+//●●●●●●开窗口显示,X(0-7Page,1Page=1BYTE),Y(0->95)
+//注意高度为8得倍数,Y(0->95)
+//Display_windows(gImage_48x48, 1,7,0,48);
+
+
+//void Display_windows(const unsigned char * DotData, unsigned char StartX,unsigned char EndX,unsigned char StartY,unsigned char EndY)
+//{
+//   unsigned char StartY_TEMP ;
+//	StartX = 7-StartX;
+//	EndX =7-EndX;
+//	 
+// for(  ; StartX >EndX ; StartX--)
+//	{
+//		LCD_SendCom(0x40+StartX);//Sets Y address of RAM  0≦Y≦7 (//SET H=0)
+//		LCD_SendCom(0x80+StartY );//Set X //set RAM 0≦X≦95
+//		
+//	for(StartY_TEMP=0 ;StartY_TEMP<(EndY-StartY);StartY_TEMP++)
+//	  {
+//				 LCD_SendData(* DotData);
+//			   DotData++;
+//		 }
+//	}
+//}
+
+
+
+
+
+
+
+
+
+

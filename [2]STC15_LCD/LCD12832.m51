@@ -1,0 +1,369 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    12/10/2018  20:38:24  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+C:\KEIL_V5_2\C51\BIN\BL51.EXE .\output\STARTUP.obj, .\output\main.obj, .\output\kfm010b11.obj TO .\output\LCD12832 PRINT
+>>  (.\LCD12832.m51) CODE (0X0000-0X0FFF)
+
+
+MEMORY MODEL: LARGE
+
+
+INPUT MODULES INCLUDED:
+  .\output\STARTUP.obj (?C_STARTUP)
+  .\output\main.obj (MAIN)
+  .\output\kfm010b11.obj (KFM010B11)
+  C:\KEIL_V5_2\C51\LIB\C51L.LIB (?C_INIT)
+  C:\KEIL_V5_2\C51\LIB\C51L.LIB (?C?CLDPTR)
+  C:\KEIL_V5_2\C51\LIB\C51L.LIB (?C?IILDX)
+
+
+LINK MAP OF MODULE:  .\output\LCD12832 (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *  X D A T A   M E M O R Y  * * * * * * *
+            XDATA   0000H     03E8H     UNIT         ?XD?KFM010B11
+            XDATA   03E8H     0008H     UNIT         ?XD?_PRINT_STR_ASCII8X5?KFM010B11
+            XDATA   03F0H     0004H     UNIT         _XDATA_GROUP_
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     03EDH     UNIT         ?C_INITSEG
+            CODE    03F0H     008CH     UNIT         ?C_C51STARTUP
+            CODE    047CH     0064H     UNIT         ?PR?_PRINT_A_ASCII8X5?KFM010B11
+            CODE    04E0H     0059H     UNIT         ?PR?INIT_KFM010B11?KFM010B11
+            CODE    0539H     0051H     UNIT         ?PR?_PRINT_STR_ASCII8X5?KFM010B11
+            CODE    058AH     0036H     UNIT         ?PR?CLEAR_LCD_KFM010B11?KFM010B11
+            CODE    05C0H     002FH     UNIT         ?C?LIB_CODE
+            CODE    05EFH     002AH     UNIT         ?PR?_DELAY_MS?KFM010B11
+            CODE    0619H     0027H     UNIT         ?PR?_LCD_SENDCOM?KFM010B11
+            CODE    0640H     0027H     UNIT         ?PR?_LCD_SENDDATA?KFM010B11
+            CODE    0667H     0017H     UNIT         ?PR?_TEST_SENDBYTE?KFM010B11
+            CODE    067EH     0012H     UNIT         ?PR?MAIN?MAIN
+            CODE    0690H     000CH     UNIT         ?CO?MAIN
+
+
+
+OVERLAY MAP OF MODULE:   .\output\LCD12832 (?C_STARTUP)
+
+
+SEGMENT                                     XDATA_GROUP
+  +--> CALLED SEGMENT                     START    LENGTH
+---------------------------------------------------------
+?C_C51STARTUP                             -----    -----
+  +--> ?PR?MAIN?MAIN
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/10/2018  20:38:24  PAGE 2
+
+
+  +--> ?C_INITSEG
+
+?PR?MAIN?MAIN                             -----    -----
+  +--> ?PR?INIT_KFM010B11?KFM010B11
+  +--> ?CO?MAIN
+  +--> ?PR?_PRINT_A_ASCII8X5?KFM010B11
+  +--> ?PR?_TEST_SENDBYTE?KFM010B11
+
+?PR?INIT_KFM010B11?KFM010B11              -----    -----
+  +--> ?PR?_DELAY_MS?KFM010B11
+  +--> ?PR?_LCD_SENDCOM?KFM010B11
+  +--> ?PR?CLEAR_LCD_KFM010B11?KFM010B11
+
+?PR?_LCD_SENDCOM?KFM010B11                03F3H    0001H
+  +--> ?PR?_DELAY_MS?KFM010B11
+
+?PR?CLEAR_LCD_KFM010B11?KFM010B11         03F0H    0002H
+  +--> ?PR?_LCD_SENDCOM?KFM010B11
+  +--> ?PR?_LCD_SENDDATA?KFM010B11
+
+?PR?_LCD_SENDDATA?KFM010B11               03F3H    0001H
+  +--> ?PR?_DELAY_MS?KFM010B11
+
+?PR?_PRINT_A_ASCII8X5?KFM010B11           03F0H    0003H
+  +--> ?PR?_LCD_SENDCOM?KFM010B11
+  +--> ?PR?_LCD_SENDDATA?KFM010B11
+
+?PR?_TEST_SENDBYTE?KFM010B11              03F0H    0002H
+  +--> ?PR?_LCD_SENDCOM?KFM010B11
+  +--> ?PR?_LCD_SENDDATA?KFM010B11
+
+
+
+SYMBOL TABLE OF MODULE:  .\output\LCD12832 (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:03F0H         SEGMENT       ?C_C51STARTUP
+  I:0008H         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:03F3H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/10/2018  20:38:24  PAGE 3
+
+
+  D:0081H         SYMBOL        SP
+  C:03F0H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:03F0H         LINE#         133
+  C:03F2H         LINE#         134
+  C:03F3H         LINE#         135
+  C:03F4H         LINE#         136
+  C:03F6H         LINE#         185
+  C:03F9H         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00C0H         PUBLIC        P4
+  D:00C8H         PUBLIC        P5
+  D:00E8H         PUBLIC        P6
+  D:00F8H         PUBLIC        P7
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  D:00D8H         PUBLIC        CCON
+  C:067EH         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          MAIN
+  C:067EH         LINE#         7
+  C:067EH         LINE#         8
+  C:067EH         LINE#         9
+  C:0681H         LINE#         10
+  C:068AH         LINE#         11
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        KFM010B11
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00C0H         PUBLIC        P4
+  D:00C8H         PUBLIC        P5
+  C:047CH         PUBLIC        _Print_a_Ascii8x5
+  B:00B0H.7       PUBLIC        LcdA0
+  D:00E8H         PUBLIC        P6
+  D:00F8H         PUBLIC        P7
+  D:00A8H         PUBLIC        IE
+  X:0000H         PUBLIC        ASCII_8X5
+  C:058AH         PUBLIC        clear_lcd_kfm010b11
+  D:00B8H         PUBLIC        IP
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/10/2018  20:38:24  PAGE 4
+
+
+  D:00D8H         PUBLIC        CCON
+  B:00B0H.3       PUBLIC        LcdSda
+  C:04E0H         PUBLIC        init_kfm010b11
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  B:00B0H.6       PUBLIC        LcdSck
+  C:0640H         PUBLIC        _LCD_SendData
+  B:0090H.0       PUBLIC        LcdCs
+  B:00B0H.2       PUBLIC        LcdRst
+  C:05F9H         PUBLIC        _delay_ms
+  C:0539H         PUBLIC        _Print_Str_Ascii8x5
+  C:0619H         PUBLIC        _LCD_SendCom
+  C:0667H         PUBLIC        _test_sendByte
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          L?0033
+  -------         ENDPROC       L?0033
+  -------         PROC          _DELAY_MS
+  D:0006H         SYMBOL        n
+  -------         DO            
+  D:0004H         SYMBOL        i
+  D:0002H         SYMBOL        j
+  -------         ENDDO         
+  C:05F9H         LINE#         233
+  C:05F9H         LINE#         234
+  C:05F9H         LINE#         235
+  C:05FCH         LINE#         236
+  C:0603H         LINE#         237
+  C:0618H         LINE#         238
+  -------         ENDPROC       _DELAY_MS
+  -------         PROC          _LCD_SENDCOM
+  X:03F3H         SYMBOL        COM
+  -------         DO            
+  D:0001H         SYMBOL        shift
+  -------         ENDDO         
+  C:0619H         LINE#         241
+  C:061EH         LINE#         242
+  C:061EH         LINE#         244
+  C:0620H         LINE#         245
+  C:0622H         LINE#         246
+  C:062EH         LINE#         247
+  C:062EH         LINE#         248
+  C:0631H         LINE#         249
+  C:0631H         LINE#         250
+  C:0634H         LINE#         251
+  C:0636H         LINE#         252
+  C:063AH         LINE#         253
+  C:063DH         LINE#         254
+  C:063FH         LINE#         255
+  -------         ENDPROC       _LCD_SENDCOM
+  -------         PROC          _LCD_SENDDATA
+  X:03F3H         SYMBOL        Data
+  -------         DO            
+  D:0001H         SYMBOL        shift
+  -------         ENDDO         
+  C:0640H         LINE#         257
+  C:0645H         LINE#         258
+  C:0645H         LINE#         260
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/10/2018  20:38:24  PAGE 5
+
+
+  C:0647H         LINE#         261
+  C:0649H         LINE#         262
+  C:0655H         LINE#         263
+  C:0655H         LINE#         264
+  C:0658H         LINE#         265
+  C:0658H         LINE#         266
+  C:065BH         LINE#         267
+  C:065DH         LINE#         268
+  C:0661H         LINE#         269
+  C:0664H         LINE#         270
+  C:0666H         LINE#         271
+  -------         ENDPROC       _LCD_SENDDATA
+  -------         PROC          CLEAR_LCD_KFM010B11
+  -------         DO            
+  X:03F0H         SYMBOL        i
+  -------         ENDDO         
+  C:058AH         LINE#         274
+  C:058AH         LINE#         275
+  C:058AH         LINE#         278
+  C:058FH         LINE#         279
+  C:0594H         LINE#         280
+  C:059BH         LINE#         281
+  C:059BH         LINE#         282
+  C:05A0H         LINE#         283
+  C:05BFH         LINE#         284
+  -------         ENDPROC       CLEAR_LCD_KFM010B11
+  -------         PROC          INIT_KFM010B11
+  C:04E0H         LINE#         286
+  C:04E0H         LINE#         287
+  C:04E0H         LINE#         288
+  C:04E2H         LINE#         289
+  C:04E4H         LINE#         290
+  C:04E6H         LINE#         291
+  C:04EDH         LINE#         292
+  C:04EFH         LINE#         293
+  C:04F2H         LINE#         294
+  C:04F7H         LINE#         295
+  C:04FCH         LINE#         296
+  C:0501H         LINE#         297
+  C:0506H         LINE#         298
+  C:050BH         LINE#         299
+  C:0510H         LINE#         300
+  C:0515H         LINE#         301
+  C:051AH         LINE#         302
+  C:051FH         LINE#         303
+  C:0524H         LINE#         304
+  C:0529H         LINE#         305
+  C:052EH         LINE#         306
+  C:0533H         LINE#         307
+  C:0536H         LINE#         308
+  C:0538H         LINE#         309
+  -------         ENDPROC       INIT_KFM010B11
+  -------         PROC          _TEST_SENDBYTE
+  X:03F0H         SYMBOL        x
+  X:03F1H         SYMBOL        y
+  C:0667H         LINE#         343
+  C:066FH         LINE#         344
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/10/2018  20:38:24  PAGE 6
+
+
+  C:066FH         LINE#         345
+  C:0674H         LINE#         346
+  C:0679H         LINE#         347
+  -------         ENDPROC       _TEST_SENDBYTE
+  -------         PROC          _PRINT_A_ASCII8X5
+  X:03F0H         SYMBOL        Ascii
+  X:03F1H         SYMBOL        line
+  D:0003H         SYMBOL        Number
+  -------         DO            
+  X:03F2H         SYMBOL        X_Count
+  -------         ENDDO         
+  C:047CH         LINE#         367
+  C:0484H         LINE#         368
+  C:0484H         LINE#         370
+  C:048AH         LINE#         371
+  C:048FH         LINE#         373
+  C:0498H         LINE#         374
+  C:04A2H         LINE#         375
+  C:04B6H         LINE#         376
+  C:04B6H         LINE#         377
+  C:04D7H         LINE#         378
+  C:04DFH         LINE#         379
+  -------         ENDPROC       _PRINT_A_ASCII8X5
+  -------         PROC          _PRINT_STR_ASCII8X5
+  D:0001H         SYMBOL        StrAscii
+  X:03EBH         SYMBOL        line
+  X:03ECH         SYMBOL        Number
+  -------         DO            
+  X:03EDH         SYMBOL        StrAscii_temp
+  -------         ENDDO         
+  C:0539H         LINE#         381
+  C:053EH         LINE#         382
+  C:053EH         LINE#         383
+  C:0549H         LINE#         384
+  C:055AH         LINE#         385
+  C:055AH         LINE#         387
+  C:0565H         LINE#         388
+  C:056FH         LINE#         389
+  C:0575H         LINE#         390
+  C:057BH         LINE#         391
+  C:057BH         LINE#         392
+  C:057DH         LINE#         393
+  C:0583H         LINE#         394
+  C:0587H         LINE#         395
+  C:0587H         LINE#         396
+  C:0589H         LINE#         398
+  -------         ENDPROC       _PRINT_STR_ASCII8X5
+  -------         ENDMOD        KFM010B11
+
+  -------         MODULE        ?C?CLDPTR
+  C:05C0H         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?IILDX
+  C:05D9H         PUBLIC        ?C?IILDX
+  -------         ENDMOD        ?C?IILDX
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/10/2018  20:38:24  PAGE 7
+
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PRINT_STR_ASCII8X5?KFM010B11
+
+Program Size: data=9.0 xdata=1012 code=1692
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)
