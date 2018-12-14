@@ -1,0 +1,523 @@
+C51 COMPILER V9.59.0.0   KFM010B11                                                         12/10/2018 20:41:35 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE KFM010B11
+OBJECT MODULE PLACED IN .\output\kfm010b11.obj
+COMPILER INVOKED BY: C:\Keil_v5_2\C51\BIN\C51.EXE LCD\kfm010b11.C LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\LCD) DEBUG OBJ
+                    -ECTEXTEND PRINT(.\kfm010b11.lst) TABS(2) OBJECT(.\output\kfm010b11.obj)
+
+line level    source
+
+   1          
+   2          #include "kfm010b11.H"
+   3          #include<STC15W.h>
+   4          
+   5          sbit LcdCs = P1^0;  //GPIOC_DOR bit8 add
+   6          sbit LcdRst = P3^2;  //GPIOC_DOR bit8 add
+   7          sbit LcdA0  = P3^7; //GPIOC_DOR bit8 add
+   8          sbit LcdSck =  P3^6; //GPIOC_DOR bit8 add
+   9          sbit LcdSda = P3^3;  //GPIOC_DOR bit8 add
+  10           
+  11           // 0(0) 1(1) 2(2) 3(3) 4(4) 5(5) 6(6) 7(7) 8(8) 9(9) .(10)
+  12          //FONT16x24(16宽,高24)从上到下竖取模,低位在前(高8位) 
+  13          
+  14          const unsigned char ASCII_8X5[200][5]=
+  15          {
+  16          {0x00,0x00,0x00,0x00,0x00 },/*" ",0*/
+  17          
+  18          {0x00,0x00,0xFA,0x00,0x00 },/*"!",1*/
+  19          
+  20          {0x00,0xC0,0x00,0xC0,0x00 },/*""",2*/
+  21          
+  22          {0x28,0xFE,0x28,0xFE,0x28 },/*"#",3*/
+  23          
+  24          {0x00,0x32,0x5E,0xF2,0x4C },/*"$",4*/
+  25          
+  26          {0x00,0x66,0x68,0x16,0x66 },/*"%",5*/
+  27          
+  28          {0x00,0x1C,0xF2,0xB2,0x4C },/*"&",6*/
+  29          
+  30          {0x00,0x00,0xC0,0x00,0x00 },/*"`",7*/
+  31          
+  32          {0x00,0x00,0x7C,0x82,0x00 },/*"(",8*/
+  33          
+  34          {0x00,0x00,0x82,0x7C,0x00 },/*")",9*/
+  35          
+  36          {0x00,0x38,0x7C,0x38,0x00 },/*"*",10*/
+  37          
+  38          {0x00,0x10,0x7C,0x10,0x00 },/*"+",11*/
+  39          
+  40          {0x00,0x00,0x00,0x06,0x00 },/*",",12*/
+  41          
+  42          {0x00,0x10,0x10,0x10,0x10 },/*"-",13*/
+  43          
+  44          {0x00,0x00,0x02,0x00,0x00 },/*".",14*/
+  45          
+  46          {0x00,0x02,0x0C,0x30,0xC0 },/*"/",15*/
+  47          
+  48          {0x00,0x7C,0x82,0x82,0x7C },/*"0",16*/
+  49          
+  50          {0x00,0x42,0xFE,0x02,0x00 },/*"1",17*/
+  51          
+  52          {0x00,0x46,0x8A,0x92,0x62 },/*"2",18*/
+  53          
+  54          {0x00,0x44,0x92,0x92,0x6C },/*"3",19*/
+C51 COMPILER V9.59.0.0   KFM010B11                                                         12/10/2018 20:41:35 PAGE 2   
+
+  55          
+  56          {0x00,0x1C,0x64,0xFE,0x04 },/*"4",20*/
+  57          
+  58          {0x00,0xF2,0x92,0x92,0x8C },/*"5",21*/
+  59          
+  60          {0x00,0x7C,0x92,0x92,0x4C },/*"6",22*/
+  61          
+  62          {0x00,0xC0,0x8E,0x90,0xE0 },/*"7",23*/
+  63          
+  64          {0x00,0x6C,0x92,0x92,0x6C },/*"8",24*/
+  65          
+  66          {0x00,0x64,0x92,0x92,0x7C },/*"9",25*/
+  67          
+  68          {0x00,0x00,0x24,0x00,0x00 },/*":",26*/
+  69          
+  70          {0x00,0x02,0x24,0x00,0x00 },/*";",27*/
+  71          
+  72          {0x00,0x10,0x28,0x44,0x82 },/*"<",28*/
+  73          
+  74          {0x00,0x28,0x28,0x28,0x28 },/*"=",29*/
+  75          
+  76          {0x00,0x82,0x44,0x28,0x10 },/*">",30*/
+  77          
+  78          {0x00,0x40,0x8A,0x90,0x60 },/*"?",31*/
+  79          
+  80          {0x00,0x70,0x8E,0x92,0x7E },/*"@",32*/
+  81          
+  82          {0x00,0x7E,0x88,0x88,0x7E },/*"A",0*/
+  83          
+  84          {0x00,0xFE,0x92,0x92,0x6C },/*"B",1*/
+  85          
+  86          {0x00,0x7C,0x82,0x82,0x44 },/*"C",2*/
+  87          
+  88          {0x00,0xFE,0x82,0x82,0x7C },/*"D",3*/
+  89          
+  90          {0x00,0xFE,0x92,0x92,0x82 },/*"E",4*/
+  91          
+  92          {0x00,0xFE,0x90,0x90,0x80 },/*"F",5*/
+  93          
+  94          {0x00,0x7C,0x82,0x92,0x5C },/*"G",6*/
+  95          
+  96          {0x00,0xFE,0x10,0x10,0xFE },/*"H",7*/
+  97          
+  98          {0x00,0x82,0xFE,0x82,0x00 },/*"I",8*/
+  99          
+ 100          {0x00,0x0C,0x02,0x02,0xFC },/*"J",9*/
+ 101          
+ 102          {0x00,0xFE,0x10,0x28,0xC6 },/*"K",10*/
+ 103          
+ 104          {0x00,0xFE,0x02,0x02,0x02 },/*"L",11*/
+ 105          
+ 106          {0x00,0xFE,0x60,0x60,0xFE },/*"M",12*/
+ 107          
+ 108          {0x00,0xFE,0x60,0x18,0xFE },/*"N",13*/
+ 109          
+ 110          {0x00,0xFE,0x82,0x82,0xFE },/*"O",14*/
+ 111          
+ 112          {0x00,0xFE,0x90,0x90,0x60 },/*"P",15*/
+ 113          
+ 114          {0x00,0x7C,0x8A,0x86,0x7E },/*"Q",16*/
+ 115          
+ 116          {0x00,0xFE,0x98,0x94,0x62 },/*"R",17*/
+C51 COMPILER V9.59.0.0   KFM010B11                                                         12/10/2018 20:41:35 PAGE 3   
+
+ 117          
+ 118          {0x00,0x64,0x92,0x92,0x4C },/*"S",18*/
+ 119          
+ 120          {0x00,0x80,0xFE,0x80,0x80 },/*"T",19*/
+ 121          
+ 122          {0x00,0xFC,0x02,0x02,0xFC },/*"U",20*/
+ 123          
+ 124          {0x00,0xF0,0x0E,0x0E,0xF0 },/*"V",21*/
+ 125          
+ 126          {0x00,0xFE,0x0C,0x0C,0xFE },/*"W",22*/
+ 127          
+ 128          {0x00,0xC6,0x38,0x38,0xC6 },/*"X",23*/
+ 129          
+ 130          {0xC0,0x20,0x1E,0x20,0xC0 },/*"Y",24*/
+ 131          
+ 132          {0x00,0x86,0x9A,0xB2,0xC2 }, /*"Z",25*/
+ 133          
+ 134          //''''''''''''''''''''''''''''''''''''''''''''''''''
+ 135          
+ 136          {0x00,0x00,0xFE,0x82,0x00 },/*"[",0*/
+ 137          
+ 138          {0xC0,0x30,0x0C,0x02,0x00 },/*"\",1*/
+ 139          
+ 140          {0x00,0x00,0x82,0xFE,0x00 },/*"]",2*/
+ 141          
+ 142          {0x00,0x40,0x80,0x40,0x00 },/*"^",3*/
+ 143          
+ 144          {0x00,0x02,0x02,0x02,0x02 },/*"_",4*/
+ 145          
+ 146          {0x00,0x00,0xC0,0x00,0x00 },/*"`",5*/
+ 147          
+ 148          {0x00,0x04,0x1A,0x1A,0x1E },/*"a",6*/
+ 149          
+ 150          {0x00,0xFE,0x12,0x12,0x0C },/*"b",7*/
+ 151          
+ 152          {0x00,0x0C,0x12,0x12,0x12 },/*"c",8*/
+ 153          
+ 154          {0x00,0x0C,0x12,0x12,0xFE },/*"d",9*/
+ 155          
+ 156          {0x00,0x0C,0x1A,0x1A,0x08 },/*"e",10*/
+ 157          
+ 158          {0x00,0x10,0x3E,0x50,0x10 },/*"f",11*/
+ 159          
+ 160          {0x00,0x08,0x15,0x15,0x1E },/*"g",12*/
+ 161          
+ 162          {0x00,0xFE,0x10,0x1E,0x00 },/*"h",13*/
+ 163          
+ 164          {0x00,0x00,0x2E,0x00,0x00 },/*"i",14*/
+ 165          
+ 166          {0x00,0x01,0x01,0x2E,0x00 },/*"j",15*/
+ 167          
+ 168          {0x00,0xFE,0x08,0x14,0x12 },/*"k",16*/
+ 169          
+ 170          {0x00,0x02,0xFE,0x02,0x00 },/*"l",17*/
+ 171          
+ 172          {0x00,0x1E,0x10,0x1E,0x1E },/*"m",18*/
+ 173          
+ 174          {0x00,0x1E,0x10,0x10,0x0E },/*"n",19*/
+ 175          
+ 176          {0x00,0x0C,0x12,0x12,0x0C },/*"o",20*/
+ 177          
+ 178          {0x00,0x1F,0x12,0x12,0x0C },/*"p",21*/
+C51 COMPILER V9.59.0.0   KFM010B11                                                         12/10/2018 20:41:35 PAGE 4   
+
+ 179          
+ 180          {0x00,0x0C,0x12,0x12,0x1F },/*"q",22*/
+ 181          
+ 182          {0x00,0x1E,0x08,0x10,0x10 },/*"r",23*/
+ 183          
+ 184          {0x00,0x0A,0x1A,0x16,0x14 },/*"s",24*/
+ 185          
+ 186          {0x00,0x10,0x3E,0x12,0x00 },/*"t",25*/
+ 187          
+ 188          {0x00,0x1C,0x02,0x02,0x1E },/*"u",26*/
+ 189          
+ 190          {0x00,0x18,0x06,0x06,0x18 },/*"v",27*/
+ 191          
+ 192          {0x18,0x06,0x1C,0x06,0x18 },/*"w",28*/
+ 193          
+ 194          {0x00,0x12,0x0C,0x0C,0x12 },/*"x",29*/
+ 195          
+ 196          {0x00,0x18,0x05,0x05,0x1E },/*"y",30*/
+ 197          
+ 198          {0x00,0x12,0x16,0x1A,0x12 },/*"z",31*/
+ 199          
+ 200          {0x00,0x10,0xEE,0x82,0x00 },/*"{",32*/
+ 201          
+ 202          {0xC0,0x30,0x0C,0x02,0x00 },/*"\",33*/
+ 203          
+ 204          {0x00,0x82,0xEE,0x10,0x00 },/*"}",34*/
+ 205          
+ 206          {0x00,0x40,0x80,0x40,0x80 } /*"~",35*/
+ 207          
+ 208          };
+ 209          
+ 210          //PAGE_8
+ 211          //0->天线标记 
+ 212          //4->天线信号最小挡 
+ 213          //7 ->天线信号中挡    
+ 214          //10 ->天线信号高挡 
+ 215          //20 ->电话听筒标记 
+ 216          //30 ->电话锁标记
+ 217          //40 ->字母Gr标记 
+ 218          //50 ->信箱标记   
+ 219          //60 ->锁标记   
+ 220          //70 ->禁止铃声标记 
+ 221          //75 ->闹钟标记   
+ 222          //80 ->电池外壳标记 
+ 223          //93 ->电池电量高标记 
+ 224          //94 ->电池电量低标记 
+ 225          //95 ->电池电量中标记  
+ 226          
+ 227          
+ 228          void LCD_SendCom(unsigned char COM);
+ 229          void LCD_SendData(unsigned char Data);
+ 230          void clear_lcd_kfm010b11(void);
+ 231           
+ 232          //延时n毫秒
+ 233          void delay_ms(unsigned int n)
+ 234          {
+ 235   1          unsigned int i=0,j=0;
+ 236   1          for(i=0;i<n;i++)
+ 237   1              for(j=0;j<114;j++);
+ 238   1      }
+ 239          
+ 240          //●●●●●LCD发送指令
+C51 COMPILER V9.59.0.0   KFM010B11                                                         12/10/2018 20:41:35 PAGE 5   
+
+ 241          void LCD_SendCom(unsigned char COM)
+ 242          {
+ 243   1        unsigned char shift;
+ 244   1        LcdA0 =0;
+ 245   1        LcdCs =0;
+ 246   1        for(shift=0;shift<8;shift++)
+ 247   1          {
+ 248   2            LcdSda =(COM&0x80);
+ 249   2            LcdSck =0;
+ 250   2          delay_ms(1);
+ 251   2            LcdSck =1;
+ 252   2            COM <<=1;
+ 253   2          }
+ 254   1         LcdCs =1;
+ 255   1      }
+ 256          //●●●●●LCD发送数据
+ 257          void LCD_SendData(unsigned char Data)
+ 258          {
+ 259   1        unsigned char shift;
+ 260   1        LcdA0 =1;
+ 261   1        LcdCs =0;
+ 262   1          for(shift=0;shift<8;shift++)
+ 263   1          {
+ 264   2            LcdSda = (Data&0x80);
+ 265   2            LcdSck =0;
+ 266   2          delay_ms(1);
+ 267   2            LcdSck =1;
+ 268   2            Data <<=1;
+ 269   2          }
+ 270   1         LcdCs =1;
+ 271   1      }
+ 272          
+ 273          //●●●●●清屏
+ 274          void clear_lcd_kfm010b11(void)
+ 275            {
+ 276   1          int i; 
+ 277   1         
+ 278   1          LCD_SendCom(0x78);
+ 279   1          LCD_SendCom(0x40);
+ 280   1          for(i = 0; i < 102*9; i++)
+ 281   1          {
+ 282   2           LCD_SendData(0x00); 
+ 283   2          }  
+ 284   1        }
+ 285          //●●●●●初始化LCD
+ 286          void init_kfm010b11(void)
+ 287          {
+ 288   1        LcdRst=0;
+ 289   1        LcdSck =1;
+ 290   1        LcdCs =0;
+ 291   1        delay_ms(50);
+ 292   1        LcdRst=1;
+ 293   1        delay_ms(50);
+ 294   1        LCD_SendCom(0x78);// 
+ 295   1        LCD_SendCom(0x00);//NOP 
+ 296   1        LCD_SendCom(0x2e);//MXMY Mirror X, Mirror Y 
+ 297   1        LCD_SendCom(0x21);//Function set->Extend Set H=1
+ 298   1        LCD_SendCom(0x10);//Bia->对比度调整0b0000xxx
+ 299   1        LCD_SendCom(0xc0);//VOP 
+ 300   1        LCD_SendCom(0x0b);//oost
+ 301   1        LCD_SendCom(0x20);//Function set->Normal Set H=0 
+ 302   1        LCD_SendCom(0x11);//PRS 
+C51 COMPILER V9.59.0.0   KFM010B11                                                         12/10/2018 20:41:35 PAGE 6   
+
+ 303   1        LCD_SendCom(0x0c);// 
+ 304   1        LCD_SendCom(0x40);// 
+ 305   1        LCD_SendCom(0x80);//PD->en  
+ 306   1        LCD_SendCom(0x20);//Function set->Normal Set H=0  
+ 307   1        clear_lcd_kfm010b11( ); //SET H=0
+ 308   1        LcdCs =1;
+ 309   1      }
+ 310          
+ 311          ////●●●●●Sets X address of RAM 0≦X≦95 (//SET H=0)
+ 312          //void SetXAdd(unsigned char X)
+ 313          //{
+ 314          //  LCD_SendCom(0x80+X);
+ 315          //}
+ 316          
+ 317          ////●●●●●Sets Y address of RAM  0≦Y≦7 (//SET H=0)
+ 318          //void SetYAdd(unsigned char Y)
+ 319          //{
+ 320          //  LCD_SendCom(0x40+Y);
+ 321          //}
+ 322          
+ 323          
+ 324          
+ 325          ////●●●●●●输出96X64图片
+ 326          //void PrintLcd96x64(const unsigned char *bpm)
+ 327          //{
+ 328          //  unsigned char X_count,Y_count;
+ 329          //  for(Y_count=0;Y_count<8;Y_count++)
+ 330          //  {
+ 331          //      LCD_SendCom(0x80+00);//set RAM 0≦X≦95
+ 332          //      LCD_SendCom(0x40+Y_count);//Sets Y address of RAM  0≦Y≦7 (//SET H=0)
+ 333          
+ 334          //   for(X_count=0;X_count<96;X_count++)
+ 335          //      {
+ 336          //         LCD_SendData(*bpm);//send data
+ 337          //          bpm++;
+ 338          //      }
+ 339          //  }
+ 340          //}
+ 341          
+ 342          ////●●●●●测试
+ 343          void test_sendByte(unsigned char x,unsigned char y )
+ 344          {
+ 345   1         LCD_SendCom(0x80+90+5);//set RAM 0≦X≦95
+ 346   1        LCD_SendCom(0x40+8);//Set  Y address of RAM  0≦Y≦7 (//SET H=0)
+ 347   1        LCD_SendData(0x20);//send data
+ 348   1      
+ 349   1      ////PAGE_8
+ 350   1      ////0->天线标记 
+ 351   1      ////4->天线信号最小挡 
+ 352   1      ////7 ->天线信号中挡    
+ 353   1      ////10 ->天线信号高挡 
+ 354   1      ////20 ->电话听筒标记 
+ 355   1      ////30 ->电话锁标记
+ 356   1      ////40 ->字母Gr标记 
+ 357   1      ////50 ->信箱标记   
+ 358   1      ////60 ->锁标记   
+ 359   1      ////70 ->禁止铃声标记 
+ 360   1      ////75 ->闹钟标记   
+ 361   1      ////80 ->电池外壳标记 
+ 362   1      ////93 ->电池电量高标记 
+ 363   1      ////94 ->电池电量低标记 
+ 364   1      ////95 ->电池电量中标记 
+C51 COMPILER V9.59.0.0   KFM010B11                                                         12/10/2018 20:41:35 PAGE 7   
+
+ 365   1      }
+*** WARNING C280 IN LINE 343 OF LCD\kfm010b11.C: 'x': unreferenced local variable
+*** WARNING C280 IN LINE 343 OF LCD\kfm010b11.C: 'y': unreferenced local variable
+ 366          //●●●●●●输出一个字符 一行96/6=16个字符,0-7行LINE
+ 367          void Print_a_Ascii8x5(unsigned char Ascii,unsigned char line,unsigned char Number)
+ 368          {
+ 369   1        unsigned char X_Count;
+ 370   1        Number *=6 ;//列位置计算.一个字符8列,共96列
+ 371   1        line =7-line ;//行反转,由于0行在最底下,改动到7行最上面位置
+ 372   1      
+ 373   1        LCD_SendCom(0x80+Number);//set RAM 0≦X≦95 列位置(96/8=12)
+ 374   1        LCD_SendCom(0x40+line);//Set  Y address of RAM  0≦Y≦7 (//SET H=0)
+ 375   1        for(X_Count=1;X_Count < 5 ;X_Count ++)
+ 376   1          {   
+ 377   2            LCD_SendData( ASCII_8X5[ Ascii- ' ' ][X_Count]);//send data
+ 378   2          }
+ 379   1      } 
+ 380          //●●●●●●输出串字符 一行96/6=16个字符,0-7行LINE
+ 381          void Print_Str_Ascii8x5(void *StrAscii,unsigned char line,unsigned char Number)
+ 382          {
+ 383   1          unsigned char * StrAscii_temp =(unsigned char *) StrAscii;
+ 384   1       while(*StrAscii_temp)
+ 385   1       {
+ 386   2      
+ 387   2         Print_a_Ascii8x5( *StrAscii_temp, line, Number);
+ 388   2         StrAscii_temp++;
+ 389   2         Number ++;
+ 390   2         if(Number>>4)
+ 391   2         {
+ 392   3            Number =0;
+ 393   3            line++;
+ 394   3            line %=8;
+ 395   3         }
+ 396   2       } 
+ 397   1        
+ 398   1      }
+ 399          
+ 400          
+ 401          ////●●●●●●输出一个字符宽8x高16 一行96/8=12个字符,0-3行LINE
+ 402          //void Print_a_Ascii8x16(unsigned char Ascii,unsigned char line,unsigned char Number)
+ 403          //{
+ 404          //  unsigned char X_Count;
+ 405          //  Number *=8 ;//列位置计算.一个字符8列,共96列
+ 406          //  line =(3-line)*2 ;//行反转,由于0行在最底下,改动到96行最上面位置
+ 407          
+ 408          //  LCD_SendCom(0x80+Number);//set RAM 0≦X≦95 列位置(96/8=12)
+ 409          //  LCD_SendCom(0x40+line);//Set  Y address of RAM  0≦Y≦7 (//SET H=0)
+ 410          //  for(X_Count=0;X_Count < 8 ;X_Count ++)
+ 411          //    {   
+ 412          //      LCD_SendData( ASCII_16X8_H[ Ascii- ' ' ][X_Count+8]);//send data
+ 413          //    }
+ 414          //    
+ 415          //   LCD_SendCom(0x80+Number);//set RAM 0≦X≦95 列位置(96/8=12)
+ 416          //  LCD_SendCom(0x40+line+1);//Sets Y address of RAM  0≦Y≦7 (//SET H=0)
+ 417          //  for(X_Count=0;X_Count < 8;X_Count ++)
+ 418          //    {   
+ 419          //      LCD_SendData( ASCII_16X8_H[ Ascii- ' ' ][X_Count]);//send data
+ 420          //    }
+ 421          //    
+ 422          //}
+ 423          
+ 424          
+C51 COMPILER V9.59.0.0   KFM010B11                                                         12/10/2018 20:41:35 PAGE 8   
+
+ 425          ////●●●●●●输出一个字符 一行96/8=12个字符,0-3行LINE
+ 426          //void Print_Str_Ascii8x16(void *StrAscii,unsigned char line,unsigned char Number)
+ 427          //{
+ 428          //   unsigned char * StrAscii_temp =(unsigned char *) StrAscii;
+ 429          //   while(*StrAscii_temp)
+ 430          //     {
+ 431          //       Print_a_Ascii8x16( *StrAscii_temp, line, Number);
+ 432          //       StrAscii_temp++;
+ 433          //       Number ++;
+ 434          //       if(Number/12)
+ 435          //         {
+ 436          //           Number =0;
+ 437          //           line++;
+ 438          //           if( 4 == line )
+ 439          //           {
+ 440          //              line  =0;
+ 441          //           }
+ 442          //         }
+ 443          //     } 
+ 444          //  
+ 445          //}
+ 446           
+ 447          
+ 448          //●●●●●●开窗口显示,X(0-7Page,1Page=1BYTE),Y(0->95)
+ 449          //注意高度为8得倍数,Y(0->95)
+ 450          //Display_windows(gImage_48x48, 1,7,0,48);
+ 451          
+ 452          
+ 453          //void Display_windows(const unsigned char * DotData, unsigned char StartX,unsigned char EndX,unsigned cha
+             -r StartY,unsigned char EndY)
+ 454          //{
+ 455          //   unsigned char StartY_TEMP ;
+ 456          //  StartX = 7-StartX;
+ 457          //  EndX =7-EndX;
+ 458          //   
+ 459          // for(  ; StartX >EndX ; StartX--)
+ 460          //  {
+ 461          //    LCD_SendCom(0x40+StartX);//Sets Y address of RAM  0≦Y≦7 (//SET H=0)
+ 462          //    LCD_SendCom(0x80+StartY );//Set X //set RAM 0≦X≦95
+ 463          //    
+ 464          //  for(StartY_TEMP=0 ;StartY_TEMP<(EndY-StartY);StartY_TEMP++)
+ 465          //    {
+ 466          //         LCD_SendData(* DotData);
+ 467          //         DotData++;
+ 468          //     }
+ 469          //  }
+ 470          //}
+ 471          
+ 472          
+ 473          
+ 474          
+ 475          
+ 476          
+ 477          
+ 478          
+ 479          
+ 480          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    467    ----
+   CONSTANT SIZE    =   ----    ----
+C51 COMPILER V9.59.0.0   KFM010B11                                                         12/10/2018 20:41:35 PAGE 9   
+
+   XDATA SIZE       =   1000      17
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  2 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,5 @@
+".\output\STARTUP.obj",
+".\output\main.obj",
+".\output\kfm010b11.obj" 
+TO ".\output\LCD12832" 
+PRINT(".\LCD12832.m51") CODE( 0X0000-0X0FFF )

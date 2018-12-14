@@ -1,0 +1,430 @@
+A51 MACRO ASSEMBLER  MAIN                                                                 12/12/2018 11:42:53 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\main.OBJ
+ASSEMBLER INVOKED BY: C:\Keil_v5_2\C51\BIN\A51.EXE .\Objects\main.src PR(.\Listings\main.ls1) EP DEBUG
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; .\Objects\main.SRC generated from: main.c
+                       2     ; COMPILER INVOKED BY:
+                       3     ;        C:\Keil_v5_2\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PR
+                             INT(.\Listings\main.lst) TABS(2) SRC(.\Objects\main.SRC)
+                       4     
+                       5     $nomod51 
+                       6     
+                       7     NAME    MAIN
+                       8     
+  0080                 9     P0      DATA    080H
+  0090                10     P1      DATA    090H
+  00A0                11     P2      DATA    0A0H
+  00B0                12     P3      DATA    0B0H
+  00B4                13     T0      BIT     0B0H.4
+  00D6                14     AC      BIT     0D0H.6
+  00B5                15     T1      BIT     0B0H.5
+  0090                16     T2      BIT     090H.0
+  00AF                17     EA      BIT     0A8H.7
+  00A8                18     IE      DATA    0A8H
+  00CE                19     EXF2    BIT     0C8H.6
+  00B7                20     RD      BIT     0B0H.7
+  00AC                21     ES      BIT     0A8H.4
+  00B8                22     IP      DATA    0B8H
+  0098                23     RI      BIT     098H.0
+  00B2                24     INT0    BIT     0B0H.2
+  00D7                25     CY      BIT     0D0H.7
+  0099                26     TI      BIT     098H.1
+  00B3                27     INT1    BIT     0B0H.3
+  00CB                28     RCAP2H  DATA    0CBH
+  00BC                29     PS      BIT     0B8H.4
+  0081                30     SP      DATA    081H
+  0091                31     T2EX    BIT     090H.1
+  00D2                32     OV      BIT     0D0H.2
+  00CA                33     RCAP2L  DATA    0CAH
+  00C9                34     C_T2    BIT     0C8H.1
+  00B6                35     WR      BIT     0B0H.6
+  00CD                36     RCLK    BIT     0C8H.5
+  00CC                37     TCLK    BIT     0C8H.4
+  0090                38     P10     BIT     090H.0
+  0099                39     SBUF    DATA    099H
+  0087                40     PCON    DATA    087H
+  0098                41     SCON    DATA    098H
+  0089                42     TMOD    DATA    089H
+  0088                43     TCON    DATA    088H
+  0089                44     IE0     BIT     088H.1
+  008B                45     IE1     BIT     088H.3
+  008E                46     AUXR    DATA    08EH
+  00F0                47     B       DATA    0F0H
+  00C8                48     CP_RL2  BIT     0C8H.0
+  00E0                49     ACC     DATA    0E0H
+  00A9                50     ET0     BIT     0A8H.1
+  00AB                51     ET1     BIT     0A8H.3
+  008D                52     TF0     BIT     088H.5
+  00AD                53     ET2     BIT     0A8H.5
+  008F                54     TF1     BIT     088H.7
+  00CF                55     TF2     BIT     0C8H.7
+  009A                56     RB8     BIT     098H.2
+  008C                57     TH0     DATA    08CH
+A51 MACRO ASSEMBLER  MAIN                                                                 12/12/2018 11:42:53 PAGE     2
+
+  00A8                58     EX0     BIT     0A8H.0
+  0088                59     IT0     BIT     088H.0
+  008D                60     TH1     DATA    08DH
+  00D6                61     T2H     DATA    0D6H
+  009B                62     TB8     BIT     098H.3
+  00AA                63     EX1     BIT     0A8H.2
+  008A                64     IT1     BIT     088H.2
+  00CD                65     TH2     DATA    0CDH
+  00D0                66     P       BIT     0D0H.0
+  009F                67     SM0     BIT     098H.7
+  008A                68     TL0     DATA    08AH
+  009E                69     SM1     BIT     098H.6
+  008B                70     TL1     DATA    08BH
+  00D7                71     T2L     DATA    0D7H
+  009D                72     SM2     BIT     098H.5
+  00CC                73     TL2     DATA    0CCH
+  00B9                74     PT0     BIT     0B8H.1
+  00BB                75     PT1     BIT     0B8H.3
+  00D3                76     RS0     BIT     0D0H.3
+  00BD                77     PT2     BIT     0B8H.5
+  008C                78     TR0     BIT     088H.4
+  00D4                79     RS1     BIT     0D0H.4
+  008E                80     TR1     BIT     088H.6
+  00CA                81     TR2     BIT     0C8H.2
+  00B8                82     PX0     BIT     0B8H.0
+  00BA                83     PX1     BIT     0B8H.2
+  0083                84     DPH     DATA    083H
+  0082                85     DPL     DATA    082H
+  00CB                86     EXEN2   BIT     0C8H.3
+  009C                87     REN     BIT     098H.4
+  00C8                88     T2CON   DATA    0C8H
+  00B0                89     RXD     BIT     0B0H.0
+  00B1                90     TXD     BIT     0B0H.1
+  00D5                91     F0      BIT     0D0H.5
+  00D0                92     PSW     DATA    0D0H
+                      93     ?PR?Delay1000ms?MAIN SEGMENT CODE 
+                      94     ?PR?UartInit?MAIN    SEGMENT CODE 
+                      95     ?PR?_SneString?MAIN  SEGMENT CODE 
+                      96     ?PR?main?MAIN        SEGMENT CODE 
+                      97     ?CO?MAIN             SEGMENT CODE 
+                      98             EXTRN   CODE (?C?CLDPTR)
+                      99             EXTRN   CODE (?C_STARTUP)
+                     100             PUBLIC  main
+                     101             PUBLIC  _SneString
+                     102             PUBLIC  UartInit
+                     103             PUBLIC  Delay1000ms
+                     104     
+----                 105             RSEG  ?CO?MAIN
+0000                 106     ?SC_0:
+0000 48656C6C        107             DB  'H' ,'e' ,'l' ,'l' ,'o' ,' ' ,'w' ,'o' ,'r' ,'l' 
+0004 6F20776F                
+0008 726C                    
+000A 6400            108             DB  'd' ,000H
+                     109     
+                     110     ; #include <reg52.h>
+                     111     ; #include <intrins.h>
+                     112     ; sbit P10=P1^0;
+                     113     ; sfr AUXR=0x8e;
+                     114     ; sfr T2H         =   0xD6;   //0000,0000 T2¸ß×Ö½Ú
+                     115     ; sfr T2L         =   0xD7;   //0000,0000 T2µÍ×Ö½Ú
+                     116     ; void Delay1000ms()            //@11.0592MHz
+                     117     
+----                 118             RSEG  ?PR?Delay1000ms?MAIN
+0000                 119     Delay1000ms:
+                     120             USING   0
+                     121                             ; SOURCE LINE # 7
+A51 MACRO ASSEMBLER  MAIN                                                                 12/12/2018 11:42:53 PAGE     3
+
+                     122     ; {
+                     123                             ; SOURCE LINE # 8
+                     124     ;       unsigned char i, j, k;
+                     125     ; 
+                     126     ;       _nop_();
+                     127                             ; SOURCE LINE # 11
+0000 00              128             NOP     
+                     129     ;       _nop_();
+                     130                             ; SOURCE LINE # 12
+0001 00              131             NOP     
+                     132     ;       i = 43;
+                     133                             ; SOURCE LINE # 13
+                     134     ;---- Variable 'i?040' assigned to Register 'R7' ----
+0002 7F2B            135             MOV     R7,#02BH
+                     136     ;       j = 6;
+                     137                             ; SOURCE LINE # 14
+                     138     ;---- Variable 'j?041' assigned to Register 'R6' ----
+0004 7E06            139             MOV     R6,#06H
+                     140     ;       k = 203;
+                     141                             ; SOURCE LINE # 15
+                     142     ;---- Variable 'k?042' assigned to Register 'R5' ----
+0006 7DCB            143             MOV     R5,#0CBH
+                     144     ;       do
+                     145     ;       {
+                     146                             ; SOURCE LINE # 17
+                     147     ;               do
+                     148     ;               {
+                     149                             ; SOURCE LINE # 19
+0008                 150     ?C0007:
+                     151     ;                       while (--k);
+                     152                             ; SOURCE LINE # 20
+0008 DDFE            153             DJNZ    R5,?C0007
+                     154     ;               } while (--j);
+                     155                             ; SOURCE LINE # 21
+000A DEFC            156             DJNZ    R6,?C0007
+                     157     ;       } while (--i);
+                     158                             ; SOURCE LINE # 22
+000C DFFA            159             DJNZ    R7,?C0007
+                     160     ; }
+                     161                             ; SOURCE LINE # 23
+000E 22              162             RET     
+                     163     ; END OF Delay1000ms
+                     164     
+                     165     ; 
+                     166     ; void UartInit(void)           //9600bps@11.0592MHz
+                     167     
+----                 168             RSEG  ?PR?UartInit?MAIN
+0000                 169     UartInit:
+                     170                             ; SOURCE LINE # 25
+                     171     ; {
+                     172                             ; SOURCE LINE # 26
+                     173     ;               SCON = 0x50;                    //8Î»Ê¾Ý£¬¿É±ä²¨ÌØÂÊ
+                     174                             ; SOURCE LINE # 27
+0000 759850          175             MOV     SCON,#050H
+                     176     ;               AUXR |= 0x01;                   
+                     177                             ; SOURCE LINE # 28
+0003 438E01          178             ORL     AUXR,#01H
+                     179     ;               AUXR |= 0x04;                   //¶¨Ê±Æ÷Ê±ÖÓÎªFosc£¬1TÄ£Ê½
+                     180                             ; SOURCE LINE # 29
+0006 438E04          181             ORL     AUXR,#04H
+                     182     ;               T2L = 0xE0;                             //¶¨Ê±Æ÷³õÖµ£¬ÄÚ²¿Ê±ÖÓ11.0592M£¬²¨Ì
+                             ØÂÊ9600
+                     183                             ; SOURCE LINE # 30
+0009 75D7E0          184             MOV     T2L,#0E0H
+                     185     ;               T2H = 0xFE;                             //¶¨Ê±Æ÷³õÖµ
+                     186                             ; SOURCE LINE # 31
+A51 MACRO ASSEMBLER  MAIN                                                                 12/12/2018 11:42:53 PAGE     4
+
+000C 75D6FE          187             MOV     T2H,#0FEH
+                     188     ;               AUXR |= 0x10;                   //Æô¶¯¶¨Ê±Æ÷
+                     189                             ; SOURCE LINE # 32
+000F 438E10          190             ORL     AUXR,#010H
+                     191     ;     //ES=1;                                   //´®¿ÚÖÐ¶Ï¿ª¹Ø,²ÉÓÃ²éÑ¯·¨Ê±²»ÓÃ´ò¿ªÖÐ¶Ï    
+                               
+                     192     ;     REN=1;                            //´®¿ÚÎª¹¤×÷·½Ê½1£¬ÔÊÐí½ÓÊÕÊ¾Ý
+                     193                             ; SOURCE LINE # 34
+0012 D29C            194             SETB    REN
+                     195     ;     SM0=0;                                            //SM0 SM1´®¿Ú¹¤×÷·½Ê½Ñ¡Ôñ£¬01£º8Î»Ò
+                             ì²½ÊÕ·¢£¬²¨ÌØÂÊÓÉ¶¨Ê±Æ÷¾ö¶¨
+                     196                             ; SOURCE LINE # 35
+0014 C29F            197             CLR     SM0
+                     198     ;     SM1=1;
+                     199                             ; SOURCE LINE # 36
+0016 D29E            200             SETB    SM1
+                     201     ; }
+                     202                             ; SOURCE LINE # 37
+0018 22              203             RET     
+                     204     ; END OF UartInit
+                     205     
+                     206     ; 
+                     207     ; void SneString(char *Str)
+                     208     
+----                 209             RSEG  ?PR?_SneString?MAIN
+0000                 210     _SneString:
+                     211             USING   0
+                     212                             ; SOURCE LINE # 39
+                     213     ;---- Variable 'Str?243' assigned to Register 'R1/R2/R3' ----
+                     214     ; {
+                     215                             ; SOURCE LINE # 40
+0000                 216     ?C0011:
+                     217     ;               while(*Str!=0)
+                     218                             ; SOURCE LINE # 41
+0000 120000   F      219             LCALL   ?C?CLDPTR
+0003 FF              220             MOV     R7,A
+0004 FD              221             MOV     R5,A
+0005 33              222             RLC     A
+0006 95E0            223             SUBB    A,ACC
+0008 4D              224             ORL     A,R5
+0009 6010            225             JZ      ?C0015
+                     226     ;               {
+                     227                             ; SOURCE LINE # 42
+                     228     ;                       SBUF=*Str;
+                     229                             ; SOURCE LINE # 43
+000B 8F99            230             MOV     SBUF,R7
+000D                 231     ?C0013:
+                     232     ;                       while(!TI);                                     //µÈ´·¢ËÍÍê³É
+                     233                             ; SOURCE LINE # 44
+000D 3099FD          234             JNB     TI,?C0013
+                     235     ;                       TI=0;                                                   //ÇåÁã·¢ËÍ±
+                             êÖ¾Î»
+                     236                             ; SOURCE LINE # 45
+0010 C299            237             CLR     TI
+                     238     ;                       Str++;
+                     239                             ; SOURCE LINE # 46
+0012 7401            240             MOV     A,#01H
+0014 29              241             ADD     A,R1
+0015 F9              242             MOV     R1,A
+0016 E4              243             CLR     A
+0017 3A              244             ADDC    A,R2
+0018 FA              245             MOV     R2,A
+                     246     ;               }
+                     247                             ; SOURCE LINE # 47
+0019 80E5            248             SJMP    ?C0011
+                     249     ; }
+A51 MACRO ASSEMBLER  MAIN                                                                 12/12/2018 11:42:53 PAGE     5
+
+                     250                             ; SOURCE LINE # 48
+001B                 251     ?C0015:
+001B 22              252             RET     
+                     253     ; END OF _SneString
+                     254     
+                     255     ; 
+                     256     ; int main()
+                     257     
+----                 258             RSEG  ?PR?main?MAIN
+0000                 259     main:
+                     260             USING   0
+                     261                             ; SOURCE LINE # 50
+                     262     ; {
+                     263                             ; SOURCE LINE # 51
+                     264     ;       UartInit();
+                     265                             ; SOURCE LINE # 52
+0000 120000   F      266             LCALL   UartInit
+0003                 267     ?C0016:
+                     268     ;       while(1)
+                     269                             ; SOURCE LINE # 53
+                     270     ;       {
+                     271                             ; SOURCE LINE # 54
+                     272     ;               Delay1000ms();
+                     273                             ; SOURCE LINE # 55
+0003 120000   F      274             LCALL   Delay1000ms
+                     275     ;               P10=!P10;
+                     276                             ; SOURCE LINE # 56
+0006 B290            277             CPL     P10
+                     278     ;               SneString("Hello world");
+                     279                             ; SOURCE LINE # 57
+0008 7BFF            280             MOV     R3,#0FFH
+000A 7A00     F      281             MOV     R2,#HIGH (?SC_0)
+000C 7900     F      282             MOV     R1,#LOW (?SC_0)
+000E 120000   F      283             LCALL   _SneString
+                     284     ;       }
+                     285                             ; SOURCE LINE # 58
+0011 80F0            286             SJMP    ?C0016
+                     287     ; END OF main
+                     288     
+                     289             END
+A51 MACRO ASSEMBLER  MAIN                                                                 12/12/2018 11:42:53 PAGE     6
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E               T Y P E  V A L U E   ATTRIBUTES
+
+?C0007 . . . . . . .  C ADDR   0008H   R   SEG=?PR?DELAY1000MS?MAIN
+?C0011 . . . . . . .  C ADDR   0000H   R   SEG=?PR?_SNESTRING?MAIN
+?C0013 . . . . . . .  C ADDR   000DH   R   SEG=?PR?_SNESTRING?MAIN
+?C0015 . . . . . . .  C ADDR   001BH   R   SEG=?PR?_SNESTRING?MAIN
+?C0016 . . . . . . .  C ADDR   0003H   R   SEG=?PR?MAIN?MAIN
+?C?CLDPTR. . . . . .  C ADDR   -----       EXT
+?CO?MAIN . . . . . .  C SEG    000CH       REL=UNIT
+?C_STARTUP . . . . .  C ADDR   -----       EXT
+?PR?DELAY1000MS?MAIN  C SEG    000FH       REL=UNIT
+?PR?MAIN?MAIN. . . .  C SEG    0013H       REL=UNIT
+?PR?UARTINIT?MAIN. .  C SEG    0019H       REL=UNIT
+?PR?_SNESTRING?MAIN.  C SEG    001CH       REL=UNIT
+?SC_0. . . . . . . .  C ADDR   0000H   R   SEG=?CO?MAIN
+AC . . . . . . . . .  B ADDR   00D0H.6 A   
+ACC. . . . . . . . .  D ADDR   00E0H   A   
+AUXR . . . . . . . .  D ADDR   008EH   A   
+B. . . . . . . . . .  D ADDR   00F0H   A   
+CP_RL2 . . . . . . .  B ADDR   00C8H.0 A   
+CY . . . . . . . . .  B ADDR   00D0H.7 A   
+C_T2 . . . . . . . .  B ADDR   00C8H.1 A   
+DELAY1000MS. . . . .  C ADDR   0000H   R   SEG=?PR?DELAY1000MS?MAIN
+DPH. . . . . . . . .  D ADDR   0083H   A   
+DPL. . . . . . . . .  D ADDR   0082H   A   
+EA . . . . . . . . .  B ADDR   00A8H.7 A   
+ES . . . . . . . . .  B ADDR   00A8H.4 A   
+ET0. . . . . . . . .  B ADDR   00A8H.1 A   
+ET1. . . . . . . . .  B ADDR   00A8H.3 A   
+ET2. . . . . . . . .  B ADDR   00A8H.5 A   
+EX0. . . . . . . . .  B ADDR   00A8H.0 A   
+EX1. . . . . . . . .  B ADDR   00A8H.2 A   
+EXEN2. . . . . . . .  B ADDR   00C8H.3 A   
+EXF2 . . . . . . . .  B ADDR   00C8H.6 A   
+F0 . . . . . . . . .  B ADDR   00D0H.5 A   
+IE . . . . . . . . .  D ADDR   00A8H   A   
+IE0. . . . . . . . .  B ADDR   0088H.1 A   
+IE1. . . . . . . . .  B ADDR   0088H.3 A   
+INT0 . . . . . . . .  B ADDR   00B0H.2 A   
+INT1 . . . . . . . .  B ADDR   00B0H.3 A   
+IP . . . . . . . . .  D ADDR   00B8H   A   
+IT0. . . . . . . . .  B ADDR   0088H.0 A   
+IT1. . . . . . . . .  B ADDR   0088H.2 A   
+MAIN . . . . . . . .  C ADDR   0000H   R   SEG=?PR?MAIN?MAIN
+OV . . . . . . . . .  B ADDR   00D0H.2 A   
+P. . . . . . . . . .  B ADDR   00D0H.0 A   
+P0 . . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . . .  D ADDR   0090H   A   
+P10. . . . . . . . .  B ADDR   0090H.0 A   
+P2 . . . . . . . . .  D ADDR   00A0H   A   
+P3 . . . . . . . . .  D ADDR   00B0H   A   
+PCON . . . . . . . .  D ADDR   0087H   A   
+PS . . . . . . . . .  B ADDR   00B8H.4 A   
+PSW. . . . . . . . .  D ADDR   00D0H   A   
+PT0. . . . . . . . .  B ADDR   00B8H.1 A   
+PT1. . . . . . . . .  B ADDR   00B8H.3 A   
+PT2. . . . . . . . .  B ADDR   00B8H.5 A   
+PX0. . . . . . . . .  B ADDR   00B8H.0 A   
+PX1. . . . . . . . .  B ADDR   00B8H.2 A   
+RB8. . . . . . . . .  B ADDR   0098H.2 A   
+RCAP2H . . . . . . .  D ADDR   00CBH   A   
+RCAP2L . . . . . . .  D ADDR   00CAH   A   
+A51 MACRO ASSEMBLER  MAIN                                                                 12/12/2018 11:42:53 PAGE     7
+
+RCLK . . . . . . . .  B ADDR   00C8H.5 A   
+RD . . . . . . . . .  B ADDR   00B0H.7 A   
+REN. . . . . . . . .  B ADDR   0098H.4 A   
+RI . . . . . . . . .  B ADDR   0098H.0 A   
+RS0. . . . . . . . .  B ADDR   00D0H.3 A   
+RS1. . . . . . . . .  B ADDR   00D0H.4 A   
+RXD. . . . . . . . .  B ADDR   00B0H.0 A   
+SBUF . . . . . . . .  D ADDR   0099H   A   
+SCON . . . . . . . .  D ADDR   0098H   A   
+SM0. . . . . . . . .  B ADDR   0098H.7 A   
+SM1. . . . . . . . .  B ADDR   0098H.6 A   
+SM2. . . . . . . . .  B ADDR   0098H.5 A   
+SP . . . . . . . . .  D ADDR   0081H   A   
+T0 . . . . . . . . .  B ADDR   00B0H.4 A   
+T1 . . . . . . . . .  B ADDR   00B0H.5 A   
+T2 . . . . . . . . .  B ADDR   0090H.0 A   
+T2CON. . . . . . . .  D ADDR   00C8H   A   
+T2EX . . . . . . . .  B ADDR   0090H.1 A   
+T2H. . . . . . . . .  D ADDR   00D6H   A   
+T2L. . . . . . . . .  D ADDR   00D7H   A   
+TB8. . . . . . . . .  B ADDR   0098H.3 A   
+TCLK . . . . . . . .  B ADDR   00C8H.4 A   
+TCON . . . . . . . .  D ADDR   0088H   A   
+TF0. . . . . . . . .  B ADDR   0088H.5 A   
+TF1. . . . . . . . .  B ADDR   0088H.7 A   
+TF2. . . . . . . . .  B ADDR   00C8H.7 A   
+TH0. . . . . . . . .  D ADDR   008CH   A   
+TH1. . . . . . . . .  D ADDR   008DH   A   
+TH2. . . . . . . . .  D ADDR   00CDH   A   
+TI . . . . . . . . .  B ADDR   0098H.1 A   
+TL0. . . . . . . . .  D ADDR   008AH   A   
+TL1. . . . . . . . .  D ADDR   008BH   A   
+TL2. . . . . . . . .  D ADDR   00CCH   A   
+TMOD . . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . . .  B ADDR   0088H.4 A   
+TR1. . . . . . . . .  B ADDR   0088H.6 A   
+TR2. . . . . . . . .  B ADDR   00C8H.2 A   
+TXD. . . . . . . . .  B ADDR   00B0H.1 A   
+UARTINIT . . . . . .  C ADDR   0000H   R   SEG=?PR?UARTINIT?MAIN
+WR . . . . . . . . .  B ADDR   00B0H.6 A   
+_SNESTRING . . . . .  C ADDR   0000H   R   SEG=?PR?_SNESTRING?MAIN
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

@@ -1,0 +1,229 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    12/13/2018  11:32:11  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+C:\KEIL_V5_2\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\main.obj TO .\Objects\1 PRINT (.\Listings\1.m51) RAMSIZE 
+>> (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\STARTUP.obj (?C_STARTUP)
+  .\Objects\main.obj (MAIN)
+  C:\KEIL_V5_2\C51\LIB\C51S.LIB (?C_INIT)
+  C:\KEIL_V5_2\C51\LIB\C51S.LIB (?C?CLDPTR)
+
+
+LINK MAP OF MODULE:  .\Objects\1 (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0005H     UNIT         ?DT?MAIN
+            IDATA   000DH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     008CH     UNIT         ?C_C51STARTUP
+            CODE    008FH     0078H     UNIT         ?PR?MAIN?MAIN
+            CODE    0107H     001CH     UNIT         ?PR?_SNESTRING?MAIN
+            CODE    0123H     0019H     UNIT         ?PR?UARTINIT?MAIN
+            CODE    013CH     0019H     UNIT         ?C?LIB_CODE
+            CODE    0155H     0010H     UNIT         ?C_INITSEG
+            CODE    0165H     000FH     UNIT         ?PR?DELAY1000MS?MAIN
+            CODE    0174H     000CH     UNIT         ?CO?MAIN
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\1 (?C_STARTUP)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?MAIN
+  +--> ?C_INITSEG
+
+?PR?MAIN?MAIN
+  +--> ?PR?UARTINIT?MAIN
+  +--> ?PR?DELAY1000MS?MAIN
+  +--> ?CO?MAIN
+  +--> ?PR?_SNESTRING?MAIN
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\1 (?C_STARTUP)
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/13/2018  11:32:11  PAGE 2
+
+
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:0003H         SEGMENT       ?C_C51STARTUP
+  I:000DH         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:0006H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:0003H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:0003H         LINE#         133
+  C:0005H         LINE#         134
+  C:0006H         LINE#         135
+  C:0007H         LINE#         136
+  C:0009H         LINE#         185
+  C:000CH         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00C0H         PUBLIC        P4
+  D:00C8H         PUBLIC        P5
+  D:00E8H         PUBLIC        P6
+  D:00F8H         PUBLIC        P7
+  D:00A8H         PUBLIC        IE
+  C:0165H         PUBLIC        Delay1000ms
+  D:0008H         PUBLIC        CS_Bit
+  D:0009H         PUBLIC        IO
+  D:00B8H         PUBLIC        IP
+  B:0098H.1       PUBLIC        TI
+  C:0107H         PUBLIC        _SneString
+  D:00D8H         PUBLIC        CCON
+  C:008FH         PUBLIC        main
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/13/2018  11:32:11  PAGE 3
+
+
+  D:000AH         PUBLIC        SCLK_Bit
+  D:0099H         PUBLIC        SBUF
+  D:0098H         PUBLIC        SCON
+  C:0123H         PUBLIC        UartInit
+  D:0088H         PUBLIC        TCON
+  D:000BH         PUBLIC        MISO_Bit
+  D:000CH         PUBLIC        MOSI_Bit
+  D:008EH         PUBLIC        AUXR
+  D:00D6H         PUBLIC        T2H
+  B:0098H.7       PUBLIC        SM0
+  B:0098H.6       PUBLIC        SM1
+  D:00D7H         PUBLIC        T2L
+  B:0098H.4       PUBLIC        REN
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          DELAY1000MS
+  -------         DO            
+  D:0007H         SYMBOL        i
+  D:0006H         SYMBOL        j
+  D:0005H         SYMBOL        k
+  -------         ENDDO         
+  C:0165H         LINE#         8
+  C:0165H         LINE#         9
+  C:0165H         LINE#         12
+  C:0166H         LINE#         13
+  C:0167H         LINE#         14
+  C:0169H         LINE#         15
+  C:016BH         LINE#         16
+  C:016DH         LINE#         18
+  C:016DH         LINE#         20
+  C:016DH         LINE#         21
+  C:016FH         LINE#         22
+  C:0171H         LINE#         23
+  C:0173H         LINE#         24
+  -------         ENDPROC       DELAY1000MS
+  -------         PROC          UARTINIT
+  C:0123H         LINE#         26
+  C:0123H         LINE#         27
+  C:0123H         LINE#         28
+  C:0126H         LINE#         29
+  C:0129H         LINE#         30
+  C:012CH         LINE#         31
+  C:012FH         LINE#         32
+  C:0132H         LINE#         33
+  C:0135H         LINE#         35
+  C:0137H         LINE#         36
+  C:0139H         LINE#         37
+  C:013BH         LINE#         38
+  -------         ENDPROC       UARTINIT
+  -------         PROC          _SNESTRING
+  D:0001H         SYMBOL        Str
+  C:0107H         LINE#         40
+  C:0107H         LINE#         41
+  C:0107H         LINE#         42
+  C:0112H         LINE#         43
+  C:0112H         LINE#         44
+  C:0114H         LINE#         45
+  C:0117H         LINE#         46
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/13/2018  11:32:11  PAGE 4
+
+
+  C:0119H         LINE#         47
+  C:0120H         LINE#         48
+  C:0122H         LINE#         49
+  -------         ENDPROC       _SNESTRING
+  -------         PROC          MAIN
+  -------         DO            
+  D:0007H         SYMBOL        i
+  D:0006H         SYMBOL        j
+  D:0005H         SYMBOL        k
+  D:0004H         SYMBOL        l
+  -------         ENDDO         
+  C:008FH         LINE#         51
+  C:008FH         LINE#         52
+  C:008FH         LINE#         54
+  C:0092H         LINE#         55
+  C:0095H         LINE#         57
+  C:0095H         LINE#         58
+  C:0095H         LINE#         59
+  C:00A8H         LINE#         60
+  C:00A8H         LINE#         62
+  C:00ACH         LINE#         63
+  C:00B0H         LINE#         65
+  C:00B2H         LINE#         67
+  C:00C5H         LINE#         68
+  C:00C5H         LINE#         69
+  C:00C8H         LINE#         71
+  C:00DAH         LINE#         72
+  C:00DAH         LINE#         73
+  C:00EDH         LINE#         74
+  C:00EDH         LINE#         76
+  C:00F0H         LINE#         77
+  C:00F3H         LINE#         78
+  C:00F6H         LINE#         79
+  C:00F9H         LINE#         80
+  C:00FCH         LINE#         81
+  C:0105H         LINE#         82
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        ?C?CLDPTR
+  C:013CH         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+Program Size: data=14.0 xdata=0 code=384
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

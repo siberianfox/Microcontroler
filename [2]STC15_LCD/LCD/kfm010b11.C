@@ -343,8 +343,8 @@ void init_kfm010b11(void)
 void test_sendByte(unsigned char x,unsigned char y )
 {
    LCD_SendCom(0x80+90+5);//set RAM 0≦X≦95
-	LCD_SendCom(0x40+7);//Set  Y address of RAM  0≦Y≦7 (//SET H=0)
-	LCD_SendData(0xff);//send data
+	LCD_SendCom(0x40+8);//Set  Y address of RAM  0≦Y≦7 (//SET H=0)
+	LCD_SendData(0x20);//send data
 
 ////PAGE_8
 ////0->天线标记	

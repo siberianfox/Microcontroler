@@ -1,0 +1,289 @@
+; .\Objects\main.SRC generated from: main.c
+; COMPILER INVOKED BY:
+;        C:\Keil_v5_2\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main.lst) TABS(2) SRC(.\Objects\main.SRC)
+
+$NOMOD51
+
+NAME	MAIN
+
+P0	DATA	080H
+P1	DATA	090H
+P2	DATA	0A0H
+P3	DATA	0B0H
+T0	BIT	0B0H.4
+AC	BIT	0D0H.6
+T1	BIT	0B0H.5
+T2	BIT	090H.0
+EA	BIT	0A8H.7
+IE	DATA	0A8H
+EXF2	BIT	0C8H.6
+RD	BIT	0B0H.7
+ES	BIT	0A8H.4
+IP	DATA	0B8H
+RI	BIT	098H.0
+INT0	BIT	0B0H.2
+CY	BIT	0D0H.7
+TI	BIT	098H.1
+INT1	BIT	0B0H.3
+RCAP2H	DATA	0CBH
+PS	BIT	0B8H.4
+SP	DATA	081H
+T2EX	BIT	090H.1
+OV	BIT	0D0H.2
+RCAP2L	DATA	0CAH
+C_T2	BIT	0C8H.1
+WR	BIT	0B0H.6
+RCLK	BIT	0C8H.5
+TCLK	BIT	0C8H.4
+P10	BIT	090H.0
+SBUF	DATA	099H
+PCON	DATA	087H
+SCON	DATA	098H
+TMOD	DATA	089H
+TCON	DATA	088H
+IE0	BIT	088H.1
+IE1	BIT	088H.3
+AUXR	DATA	08EH
+B	DATA	0F0H
+CP_RL2	BIT	0C8H.0
+ACC	DATA	0E0H
+ET0	BIT	0A8H.1
+ET1	BIT	0A8H.3
+TF0	BIT	088H.5
+ET2	BIT	0A8H.5
+TF1	BIT	088H.7
+TF2	BIT	0C8H.7
+RB8	BIT	098H.2
+TH0	DATA	08CH
+EX0	BIT	0A8H.0
+IT0	BIT	088H.0
+TH1	DATA	08DH
+T2H	DATA	0D6H
+TB8	BIT	098H.3
+EX1	BIT	0A8H.2
+IT1	BIT	088H.2
+TH2	DATA	0CDH
+P	BIT	0D0H.0
+SM0	BIT	098H.7
+TL0	DATA	08AH
+SM1	BIT	098H.6
+TL1	DATA	08BH
+T2L	DATA	0D7H
+SM2	BIT	098H.5
+TL2	DATA	0CCH
+PT0	BIT	0B8H.1
+PT1	BIT	0B8H.3
+RS0	BIT	0D0H.3
+PT2	BIT	0B8H.5
+TR0	BIT	088H.4
+RS1	BIT	0D0H.4
+TR1	BIT	088H.6
+TR2	BIT	0C8H.2
+PX0	BIT	0B8H.0
+PX1	BIT	0B8H.2
+DPH	DATA	083H
+DPL	DATA	082H
+EXEN2	BIT	0C8H.3
+REN	BIT	098H.4
+T2CON	DATA	0C8H
+RXD	BIT	0B0H.0
+TXD	BIT	0B0H.1
+F0	BIT	0D0H.5
+PSW	DATA	0D0H
+?PR?Delay1000ms?MAIN SEGMENT CODE 
+?PR?UartInit?MAIN    SEGMENT CODE 
+?PR?_SneString?MAIN  SEGMENT CODE 
+?PR?main?MAIN        SEGMENT CODE 
+?CO?MAIN             SEGMENT CODE 
+	EXTRN	CODE (?C?CLDPTR)
+	EXTRN	CODE (?C_STARTUP)
+	PUBLIC	main
+	PUBLIC	_SneString
+	PUBLIC	UartInit
+	PUBLIC	Delay1000ms
+
+	RSEG  ?CO?MAIN
+?SC_0:
+	DB  'H' ,'e' ,'l' ,'l' ,'o' ,' ' ,'w' ,'o' ,'r' ,'l' 
+	DB  'd' ,000H
+
+; #include <reg52.h>
+; #include <intrins.h>
+; sbit P10=P1^0;
+; sfr AUXR=0x8e;
+; sfr T2H         =   0xD6;   //0000,0000 T2高字节
+; sfr T2L         =   0xD7;   //0000,0000 T2低字节
+; void Delay1000ms()		//@11.0592MHz
+
+	RSEG  ?PR?Delay1000ms?MAIN
+Delay1000ms:
+	USING	0
+			; SOURCE LINE # 7
+; {
+			; SOURCE LINE # 8
+; 	unsigned char i, j, k;
+; 
+; 	_nop_();
+			; SOURCE LINE # 11
+	NOP  	
+; 	_nop_();
+			; SOURCE LINE # 12
+	NOP  	
+; 	i = 43;
+			; SOURCE LINE # 13
+;---- Variable 'i?040' assigned to Register 'R7' ----
+	MOV  	R7,#02BH
+; 	j = 6;
+			; SOURCE LINE # 14
+;---- Variable 'j?041' assigned to Register 'R6' ----
+	MOV  	R6,#06H
+; 	k = 203;
+			; SOURCE LINE # 15
+;---- Variable 'k?042' assigned to Register 'R5' ----
+	MOV  	R5,#0CBH
+; 	do
+; 	{
+			; SOURCE LINE # 17
+; 		do
+; 		{
+			; SOURCE LINE # 19
+?C0007:
+; 			while (--k);
+			; SOURCE LINE # 20
+	DJNZ 	R5,?C0007
+; 		} while (--j);
+			; SOURCE LINE # 21
+	DJNZ 	R6,?C0007
+; 	} while (--i);
+			; SOURCE LINE # 22
+	DJNZ 	R7,?C0007
+; }
+			; SOURCE LINE # 23
+	RET  	
+; END OF Delay1000ms
+
+; 
+; void UartInit(void)		//9600bps@11.0592MHz
+
+	RSEG  ?PR?UartInit?MAIN
+UartInit:
+			; SOURCE LINE # 25
+; {
+			; SOURCE LINE # 26
+; 		SCON = 0x50;			//8位数据，可变波特率
+			; SOURCE LINE # 27
+	MOV  	SCON,#050H
+; 		AUXR |= 0x01;			
+			; SOURCE LINE # 28
+	ORL  	AUXR,#01H
+; 		AUXR |= 0x04;			//定时器时钟为Fosc，1T模式
+			; SOURCE LINE # 29
+	ORL  	AUXR,#04H
+; 		T2L = 0xE0;				//定时器初值，内部时钟11.0592M，波特率9600
+			; SOURCE LINE # 30
+	MOV  	T2L,#0E0H
+; 		T2H = 0xFE;				//定时器初值
+			; SOURCE LINE # 31
+	MOV  	T2H,#0FEH
+; 		AUXR |= 0x10;			//启动定时器
+			; SOURCE LINE # 32
+	ORL  	AUXR,#010H
+;     //ES=1; 					//串口中断开关,采用查询法时不用打开中断      
+;     REN=1;      			//串口为工作方式1，允许接收数据
+			; SOURCE LINE # 34
+	SETB 	REN
+;     SM0=0;						//SM0 SM1串口工作方式选择，01：8位异步收发，波特率由定时器决定
+			; SOURCE LINE # 35
+	CLR  	SM0
+;     SM1=1;
+			; SOURCE LINE # 36
+	SETB 	SM1
+; }
+			; SOURCE LINE # 37
+	RET  	
+; END OF UartInit
+
+; 
+; void SneString(char *Str)
+
+	RSEG  ?PR?_SneString?MAIN
+_SneString:
+	USING	0
+			; SOURCE LINE # 39
+;---- Variable 'Str?243' assigned to Register 'R1/R2/R3' ----
+; {
+			; SOURCE LINE # 40
+?C0011:
+; 		while(*Str!=0)
+			; SOURCE LINE # 41
+	LCALL	?C?CLDPTR
+	MOV  	R7,A
+	MOV  	R5,A
+	RLC  	A
+	SUBB 	A,ACC
+	ORL  	A,R5
+	JZ   	?C0015
+; 		{
+			; SOURCE LINE # 42
+; 			SBUF=*Str;
+			; SOURCE LINE # 43
+	MOV  	SBUF,R7
+?C0013:
+; 			while(!TI); 					//等待发送完成
+			; SOURCE LINE # 44
+	JNB  	TI,?C0013
+; 			TI=0; 							//清零发送标志位
+			; SOURCE LINE # 45
+	CLR  	TI
+; 			Str++;
+			; SOURCE LINE # 46
+	MOV  	A,#01H
+	ADD  	A,R1
+	MOV  	R1,A
+	CLR  	A
+	ADDC 	A,R2
+	MOV  	R2,A
+; 		}
+			; SOURCE LINE # 47
+	SJMP 	?C0011
+; }
+			; SOURCE LINE # 48
+?C0015:
+	RET  	
+; END OF _SneString
+
+; 
+; int main()
+
+	RSEG  ?PR?main?MAIN
+main:
+	USING	0
+			; SOURCE LINE # 50
+; {
+			; SOURCE LINE # 51
+; 	UartInit();
+			; SOURCE LINE # 52
+	LCALL	UartInit
+?C0016:
+; 	while(1)
+			; SOURCE LINE # 53
+; 	{
+			; SOURCE LINE # 54
+; 		Delay1000ms();
+			; SOURCE LINE # 55
+	LCALL	Delay1000ms
+; 		P10=!P10;
+			; SOURCE LINE # 56
+	CPL  	P10
+; 		SneString("Hello world");
+			; SOURCE LINE # 57
+	MOV  	R3,#0FFH
+	MOV  	R2,#HIGH (?SC_0)
+	MOV  	R1,#LOW (?SC_0)
+	LCALL	_SneString
+; 	}
+			; SOURCE LINE # 58
+	SJMP 	?C0016
+; END OF main
+
+	END
