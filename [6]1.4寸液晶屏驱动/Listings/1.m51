@@ -1,0 +1,313 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    12/28/2018  18:58:04  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+C:\KEIL_V5_2\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\main.obj TO .\Objects\1 PRINT (.\Listings\1.m51)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\STARTUP.obj (?C_STARTUP)
+  .\Objects\main.obj (MAIN)
+
+
+LINK MAP OF MODULE:  .\Objects\1 (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0003H     UNIT         _DATA_GROUP_
+            IDATA   000BH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0DB4H     UNIT         ?CO?MAIN
+            CODE    0DB7H     0042H     UNIT         ?PR?_I2C_SOFT_SEND?MAIN
+            CODE    0DF9H     003FH     UNIT         ?PR?LCD_INIT?MAIN
+            CODE    0E38H     002CH     UNIT         ?PR?_LCD_SET_XY?MAIN
+            CODE    0E64H     0029H     UNIT         ?PR?LCD_TEST1?MAIN
+            CODE    0E8DH     0013H     UNIT         ?PR?DELAYMS?MAIN
+            CODE    0EA0H     0011H     UNIT         ?PR?MAIN?MAIN
+            CODE    0EB1H     000FH     UNIT         ?PR?I2C_SOFT_START?MAIN
+            CODE    0EC0H     000FH     UNIT         ?PR?I2C_SOFT_STOP?MAIN
+            CODE    0ECFH     000EH     UNIT         ?PR?DELAYUS?MAIN
+            CODE    0EDDH     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\1 (?C_STARTUP)
+
+
+SEGMENT                           DATA_GROUP 
+  +--> CALLED SEGMENT           START    LENGTH
+-----------------------------------------------
+?C_C51STARTUP                   -----    -----
+  +--> ?PR?MAIN?MAIN
+
+?PR?MAIN?MAIN                   0008H    0001H
+  +--> ?PR?LCD_INIT?MAIN
+  +--> ?PR?LCD_TEST1?MAIN
+  +--> ?PR?_LCD_SET_XY?MAIN
+
+?PR?LCD_INIT?MAIN               0009H    0002H
+  +--> ?PR?DELAYMS?MAIN
+  +--> ?PR?I2C_SOFT_START?MAIN
+  +--> ?CO?MAIN
+  +--> ?PR?_I2C_SOFT_SEND?MAIN
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/28/2018  18:58:04  PAGE 2
+
+
+
+?PR?I2C_SOFT_START?MAIN         -----    -----
+  +--> ?PR?DELAYUS?MAIN
+
+?PR?_I2C_SOFT_SEND?MAIN         -----    -----
+  +--> ?PR?DELAYUS?MAIN
+
+?PR?LCD_TEST1?MAIN              0009H    0002H
+  +--> ?CO?MAIN
+  +--> ?PR?_I2C_SOFT_SEND?MAIN
+
+?PR?_LCD_SET_XY?MAIN            -----    -----
+  +--> ?PR?I2C_SOFT_STOP?MAIN
+  +--> ?PR?DELAYUS?MAIN
+  +--> ?PR?I2C_SOFT_START?MAIN
+  +--> ?PR?_I2C_SOFT_SEND?MAIN
+
+?PR?I2C_SOFT_STOP?MAIN          -----    -----
+  +--> ?PR?DELAYUS?MAIN
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\1 (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:0EDDH         SEGMENT       ?C_C51STARTUP
+  I:000BH         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:0EE0H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:0EDDH         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:0EDDH         LINE#         133
+  C:0EDFH         LINE#         134
+  C:0EE0H         LINE#         135
+  C:0EE1H         LINE#         136
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/28/2018  18:58:04  PAGE 3
+
+
+  C:0EE3H         LINE#         185
+  C:0EE6H         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:06B8H         PUBLIC        LCD_DATA2
+  D:00A0H         PUBLIC        P2
+  C:0EC0H         PUBLIC        I2C_SOFT_STOP
+  C:0D6DH         PUBLIC        LCD_INT
+  C:0EA0H         PUBLIC        main
+  C:0E64H         PUBLIC        LCD_TEST1
+  C:0E38H         PUBLIC        _LCD_SET_XY
+  B:00A0H.0       PUBLIC        I2CRST
+  C:0EB1H         PUBLIC        I2C_SOFT_START
+  C:0003H         PUBLIC        LCD_DATA
+  B:00A0H.2       PUBLIC        SDA
+  B:00A0H.1       PUBLIC        SCL
+  C:0DBCH         PUBLIC        _I2C_SOFT_SEND
+  C:0DF9H         PUBLIC        LCD_INIT
+  C:0E8DH         PUBLIC        delayms
+  C:0ED4H         PUBLIC        delayus
+  C:0ECFH         SYMBOL        L?0035
+  -------         PROC          L?0034
+  -------         ENDPROC       L?0034
+  C:0ECFH         SYMBOL        L?0035
+  -------         PROC          DELAYUS
+  -------         DO            
+  D:0007H         SYMBOL        i
+  -------         ENDDO         
+  C:0ED4H         LINE#         212
+  C:0ED4H         LINE#         213
+  C:0ED4H         LINE#         214
+  C:0ED6H         LINE#         215
+  C:0EDCH         LINE#         216
+  -------         ENDPROC       DELAYUS
+  -------         PROC          DELAYMS
+  -------         DO            
+  D:0007H         SYMBOL        i
+  D:0006H         SYMBOL        j
+  -------         ENDDO         
+  C:0E8DH         LINE#         218
+  C:0E8DH         LINE#         219
+  C:0E8DH         LINE#         221
+  C:0E8FH         LINE#         222
+  C:0E91H         LINE#         223
+  C:0E97H         LINE#         224
+  C:0E9FH         LINE#         225
+  C:0E9FH         LINE#         226
+  -------         ENDPROC       DELAYMS
+  -------         PROC          I2C_SOFT_START
+  C:0EB1H         LINE#         234
+  C:0EB1H         LINE#         235
+  C:0EB1H         LINE#         236
+  C:0EB3H         LINE#         237
+  C:0EB3H         LINE#         238
+  C:0EB3H         LINE#         239
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/28/2018  18:58:04  PAGE 4
+
+
+  C:0EB6H         LINE#         240
+  C:0EB8H         LINE#         241
+  C:0EBBH         LINE#         242
+  C:0EBDH         LINE#         243
+  C:0EBFH         LINE#         244
+  -------         ENDPROC       I2C_SOFT_START
+  -------         PROC          I2C_SOFT_STOP
+  C:0EC0H         LINE#         246
+  C:0EC0H         LINE#         247
+  C:0EC0H         LINE#         248
+  C:0EC2H         LINE#         249
+  C:0EC2H         LINE#         250
+  C:0EC2H         LINE#         251
+  C:0EC5H         LINE#         252
+  C:0EC7H         LINE#         253
+  C:0ECAH         LINE#         254
+  C:0ECCH         LINE#         255
+  C:0ECEH         LINE#         256
+  -------         ENDPROC       I2C_SOFT_STOP
+  C:0DB7H         SYMBOL        L?0037
+  -------         PROC          L?0036
+  -------         ENDPROC       L?0036
+  C:0DB7H         SYMBOL        L?0037
+  -------         PROC          _I2C_SOFT_SEND
+  D:0005H         SYMBOL        S_SND
+  -------         DO            
+  D:0002H         SYMBOL        i
+  D:0004H         SYMBOL        SOFT_ACK
+  D:0003H         SYMBOL        SND
+  -------         ENDDO         
+  C:0DBCH         LINE#         259
+  C:0DBEH         LINE#         260
+  C:0DBEH         LINE#         262
+  C:0DC0H         LINE#         263
+  C:0DC3H         LINE#         264
+  C:0DC3H         LINE#         265
+  C:0DC5H         LINE#         266
+  C:0DCAH         LINE#         267
+  C:0DCAH         LINE#         268
+  C:0DCEH         LINE#         269
+  C:0DD2H         LINE#         270
+  C:0DD4H         LINE#         271
+  C:0DD8H         LINE#         272
+  C:0DD8H         LINE#         274
+  C:0DD8H         LINE#         275
+  C:0DDBH         LINE#         277
+  C:0DDDH         LINE#         278
+  C:0DE0H         LINE#         279
+  C:0DE3H         LINE#         280
+  C:0DE5H         LINE#         281
+  C:0DE8H         LINE#         282
+  C:0DEAH         LINE#         283
+  C:0DEFH         LINE#         284
+  C:0DEFH         LINE#         285
+  C:0DF2H         LINE#         286
+  C:0DF4H         LINE#         287
+  C:0DF6H         LINE#         288
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/28/2018  18:58:04  PAGE 5
+
+
+  C:0DF8H         LINE#         289
+  -------         ENDPROC       _I2C_SOFT_SEND
+  -------         PROC          LCD_INIT
+  -------         DO            
+  D:0009H         SYMBOL        num
+  -------         ENDDO         
+  C:0DF9H         LINE#         292
+  C:0DF9H         LINE#         293
+  C:0DF9H         LINE#         295
+  C:0DFBH         LINE#         296
+  C:0DFEH         LINE#         297
+  C:0E00H         LINE#         298
+  C:0E03H         LINE#         299
+  C:0E06H         LINE#         300
+  C:0E09H         LINE#         301
+  C:0E0CH         LINE#         302
+  C:0E0FH         LINE#         303
+  C:0E14H         LINE#         304
+  C:0E14H         LINE#         305
+  C:0E26H         LINE#         307
+  C:0E37H         LINE#         308
+  -------         ENDPROC       LCD_INIT
+  -------         PROC          LCD_TEST1
+  -------         DO            
+  D:0009H         SYMBOL        num
+  -------         ENDDO         
+  C:0E64H         LINE#         310
+  C:0E64H         LINE#         311
+  C:0E64H         LINE#         313
+  C:0E69H         LINE#         314
+  C:0E69H         LINE#         315
+  C:0E7BH         LINE#         317
+  C:0E8CH         LINE#         318
+  -------         ENDPROC       LCD_TEST1
+  -------         PROC          _LCD_SET_XY
+  D:0001H         SYMBOL        x
+  D:0082H         SYMBOL        y
+  C:0E38H         LINE#         321
+  C:0E3CH         LINE#         322
+  C:0E3CH         LINE#         324
+  C:0E3FH         LINE#         325
+  C:0E42H         LINE#         326
+  C:0E45H         LINE#         328
+  C:0E47H         LINE#         329
+  C:0E4AH         LINE#         330
+  C:0E4CH         LINE#         331
+  C:0E4FH         LINE#         332
+  C:0E55H         LINE#         333
+  C:0E58H         LINE#         334
+  C:0E5FH         LINE#         335
+  -------         ENDPROC       _LCD_SET_XY
+  -------         PROC          MAIN
+  -------         DO            
+  D:0008H         SYMBOL        n
+  -------         ENDDO         
+  C:0EA0H         LINE#         339
+  C:0EA0H         LINE#         340
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/28/2018  18:58:04  PAGE 6
+
+
+  C:0EA0H         LINE#         342
+  C:0EA3H         LINE#         343
+  C:0EA6H         LINE#         344
+  C:0EAFH         LINE#         351
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+Program Size: data=12.0 xdata=0 code=3817
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
